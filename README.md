@@ -1,3 +1,6 @@
+# Frontend_E-commerce-course
+Frontend of final project E-commerce coure
+
 # GraduateprojectWeb
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
