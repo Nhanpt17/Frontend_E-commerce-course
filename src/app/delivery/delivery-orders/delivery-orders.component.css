@@ -1,0 +1,60 @@
+.container {
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .customer-info .name {
+    font-weight: 500;
+  }
+  
+  .customer-info .phone {
+    font-size: 0.8em;
+    color: #666;
+  }
+  
+  .address {
+    font-size: 0.9em;
+  }
+  
+  /* Status chip styles */
+ /* Base style cho chip */
+mat-chip {
+  font-weight: 500;
+  font-size: 13px;
+  color: white;
+}
+
+/* Trạng thái PENDING - Chờ quán xác nhận */
+mat-chip.pending {
+  background-color: #ff9800; /* cam */
+}
+
+/* Trạng thái PLACED - Đã đặt hàng */
+mat-chip.placed {
+  background-color: #3f51b5; /* xanh dương đậm */
+}
+
+/* Trạng thái DELIVERING - Đang giao */
+mat-chip.delivering {
+  background-color: #2196f3; /* xanh trời */
+}
+
+/* Trạng thái COMPLETED - Giao thành công */
+mat-chip.completed {
+  background-color: #4caf50; /* xanh lá */
+}
+
+/* Trạng thái CANCELLED - Đơn bị hủy */
+mat-chip.cancelled {
+  background-color: #f44336; /* đỏ */
+}

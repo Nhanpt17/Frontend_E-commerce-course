@@ -1,0 +1,65 @@
+<!--new-->
+<div class="category-container">
+  <div class="header-container">
+    <div class="header-content">
+      <h1 class="page-title">Danh mục sản phẩm</h1>
+      <button mat-flat-button color="primary" (click)="openCategoryDialog()" class="add-button">
+        <mat-icon>add</mat-icon> Thêm danh mục
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="table-container">
+    <mat-table [dataSource]="categories" class="category-table mat-elevation-z4">
+      <!-- STT Column -->
+      <ng-container matColumnDef="stt">
+        <mat-header-cell *matHeaderCellDef class="header-cell">STT</mat-header-cell>
+        <mat-cell *matCellDef="let category; let i = index" class="index-cell">
+          {{ i + 1 }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Tên danh mục</mat-header-cell>
+        <mat-cell *matCellDef="let category" class="name-cell">
+          <span class="category-name">{{ category.name }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Mô tả</mat-header-cell>
+        <mat-cell *matCellDef="let category" class="description-cell">
+          <span matTooltip="{{category.description||'Không có mô tả'}}" matTooltipPosition="above">
+            {{ category.description ? (category.description.length > 50 ? (category.description | slice:0:50) + '...' : category.description) : 'Không có mô tả' }}
+              
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Thao tác</mat-header-cell>
+        <mat-cell *matCellDef="let category" class="actions-cell">
+          <div class="action-buttons">
+            <button mat-icon-button color="primary" 
+                    (click)="openCategoryDialog(category.id)"
+                    matTooltip="Chỉnh sửa">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" 
+                    (click)="openConfirmDialog(category.id)"
+                    matTooltip="Xóa">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row"></mat-row>
+    </mat-table>
+  </div>
+</div>

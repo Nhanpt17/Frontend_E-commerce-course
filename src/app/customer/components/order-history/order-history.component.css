@@ -1,0 +1,83 @@
+/* CSS */
+.custom-table {
+    width: 100%;
+  }
+  
+  /* Căn giữa tiêu đề và nội dung */
+  .mat-header-cell, .mat-cell {
+    text-align: center;
+    justify-content: center !important;
+    padding: 12px 16px !important;
+  }
+  
+  /* Style cho nút action */
+  .action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Style cho các trạng thái (giữ nguyên từ trước) */
+  .status-container {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 14px;
+  }
+  
+  .status-icon {
+    font-size: 18px;
+    margin-right: 8px;
+  }
+  
+  .status-pending {
+    background-color: #FFF3E0;
+    color: #E65100;
+  }
+  
+  .status-placed {
+    background-color: #E3F2FD;
+    color: #0D47A1;
+  }
+  
+  .status-delivering {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+  }
+  
+  .status-completed {
+    background-color: #E8EAF6;
+    color: #311B92;
+  }
+  
+  .status-cancelled {
+    background-color: #FFEBEE;
+    color: #C62828;
+  }
+  
+  /* Đảm bảo chiều cao hàng đồng đều */
+  .mat-row, .mat-header-row {
+    height: 56px;
+  }
+
+  .text-center{
+    text-align: center;
+  }
+
+  
+
+.action-button {
+  margin: 0 4px;
+  min-width: 120px;
+}
+
+.status-CANCELLED {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+}

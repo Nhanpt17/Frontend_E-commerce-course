@@ -1,0 +1,230 @@
+
+<div *ngIf="isAdminLoggedIn">
+  <mat-toolbar color="primary">
+    <span class="logo">
+      <mat-icon>coffee</mat-icon> CoffeeMan
+  </span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/admin/dashboard" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Bảng điều khiển</button>
+    <button mat-button routerLink="/admin/analytics">Thống kê</button>
+    <button mat-button routerLink="/admin/category">Danh mục</button>
+    <!-- <button mat-button routerLink="/admin/post-category">Thêm danh mục</button> -->
+    <button mat-button routerLink="/admin/voucher">Voucher</button>
+   
+     <!-- Avatar + Menu -->
+ <!-- <button mat-button [matMenuTriggerFor]="menu"> -->
+    <!-- <mat-icon>account_circle</mat-icon> -->
+    <button  class="avataButton" style="border-radius: 50%; width: 38px;height: 38px; align-self: center;;" [matMenuTriggerFor]="menu">
+      <img [src]="userAvatar" class="avatar" alt="avatar" />
+     </button>
+    
+  <!-- </button> -->
+
+  <mat-menu #menu="matMenu">
+    <div class="mat-mn-item">
+      <img [src]="userAvatar" class="smallAvatar" alt="avatar"/>
+      <span style="font-family: Roboto, sans-serif; font-size: 16px; line-height: 24px; font-weight: 400;">{{ userName }}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="goToProfile()">
+      <mat-icon>person</mat-icon> Hồ sơ
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon> Đăng xuất
+    </button>
+  </mat-menu>
+  </mat-toolbar>
+</div>
+
+<div *ngIf="isCustomerLoggedIn">
+  <mat-toolbar color="primary">
+    <span class="logo">
+      <mat-icon>coffee</mat-icon> CoffeeMan
+  </span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Trang chủ</button>
+    <button mat-button routerLink="/products" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Sản phẩm</button>
+    <button mat-button routerLink="/cart" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"> <mat-icon matBadge="{{ (cartItemCount$ | async) || 0 }}" matBadgeColor="warn" matBadgePosition="after" matBadgeSize="small" >shopping_cart</mat-icon> Giỏ hàng</button>
+    <button mat-button routerLink="/customer/order-history"routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Đơn hàng</button>
+    <button mat-button routerLink="/customer/voucher">Voucher</button>
+     <!-- Avatar + Menu -->
+  <!-- <button mat-button [matMenuTriggerFor]="menu"> -->
+    <!-- <mat-icon>account_circle</mat-icon> -->
+     <button  class="avataButton" style="border-radius: 50%; width: 38px;height: 38px; align-self: center;;" [matMenuTriggerFor]="menu">
+      <img [src]="userAvatar" class="avatar" alt="avatar" />
+     </button>
+    
+    
+
+  <mat-menu #menu="matMenu">
+    <div class="mat-mn-item">
+      <img [src]="userAvatar" class="smallAvatar" alt="avatar"/>
+      <span style="font-family: Roboto, sans-serif; font-size: 16px; line-height: 24px; font-weight: 400;">{{ userName }}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="goToProfile()">
+      <mat-icon>person</mat-icon> Hồ sơ
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon> Đăng xuất
+    </button>
+  </mat-menu>
+  </mat-toolbar>
+</div>
+
+
+<!-- Phần template cho STAFF -->
+<div *ngIf="isStaffLoggedIn">
+  <mat-toolbar color="primary">
+    <span class="logo">
+      <mat-icon>coffee</mat-icon> CoffeeMan
+    </span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/staff" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Quản lý đơn hàng</button>
+    <button mat-button routerLink="/staff/inventory">Kiểm kho</button>
+    <button class="avataButton" style="border-radius: 50%; width: 38px;height: 38px; align-self: center;;" [matMenuTriggerFor]="menu">
+      <img [src]="userAvatar" class="avatar" alt="avatar" />
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <div class="mat-mn-item">
+        <img [src]="userAvatar" class="smallAvatar" alt="avatar"/>
+        <span style="font-family: Roboto, sans-serif; font-size: 16px; line-height: 24px; font-weight: 400;">{{ userName }}</span>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="goToProfile()">
+        <mat-icon>person</mat-icon> Hồ sơ
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon> Đăng xuất
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+</div>
+
+<!-- Phần template cho DELIVERY -->
+<div *ngIf="isDeliveryLoggedIn">
+  <mat-toolbar color="primary">
+    <span class="logo">
+      <mat-icon>coffee</mat-icon> CoffeeMan
+    </span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/delivery" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Đơn hàng cần giao</button>
+    <button mat-button routerLink="/delivery/history" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lịch sử giao hàng</button>
+    <button class="avataButton" style="border-radius: 50%; width: 38px;height: 38px; align-self: center;;" [matMenuTriggerFor]="menu">
+      <img [src]="userAvatar" class="avatar" alt="avatar" />
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <div class="mat-mn-item">
+        <img [src]="userAvatar" class="smallAvatar" alt="avatar"/>
+        <span style="font-family: Roboto, sans-serif; font-size: 16px; line-height: 24px; font-weight: 400;">{{ userName }}</span>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="goToProfile()">
+        <mat-icon>person</mat-icon> Hồ sơ
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon> Đăng xuất
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+</div>
+
+
+<div *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn && !isStaffLoggedIn && !isDeliveryLoggedIn">
+  <mat-toolbar color="primary">
+    <span class="logo">
+      <mat-icon>coffee</mat-icon> CoffeeMan
+  </span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Trang chủ</button>
+    <button mat-button routerLink="/products"routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Sản phẩm</button>
+    <button mat-button routerLink="/cart" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"> <mat-icon matBadge="{{ (cartItemCount$ | async) || 0 }}" matBadgeColor="warn" matBadgePosition="after" matBadgeSize="small" >shopping_cart</mat-icon> Giỏ hàng</button>
+    <!-- <button mat-button routerLink="/trackOrder">Theo dõi đơn hàng</button> -->
+    <button mat-button routerLink="/signup">Đăng ký</button>
+    <button mat-button routerLink="/login" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Đăng nhập</button>
+  </mat-toolbar>
+</div>
+
+
+<!-- Phần footer và các template khác giữ nguyên -->
+
+
+
+<div style="margin-bottom: 22px;"></div>
+<router-outlet></router-outlet>
+
+<footer class="black-white-footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3 class="footer-title">
+        <mat-icon>storefront</mat-icon>
+        <span>CoffeeMan</span>
+      </h3>
+      <p class="footer-text">
+        <mat-icon>location_on</mat-icon>
+        <span>123 Đường Cà Phê, Quận 1, TP.HCM</span>
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <h3 class="footer-title">
+        <mat-icon>contact_support</mat-icon>
+        <span>Liên hệ</span>
+      </h3>
+      <p class="footer-text">
+        <mat-icon>phone</mat-icon>
+        <a href="tel:0123456789">0123 456 789</a>
+      </p>
+      <p class="footer-text">
+        <mat-icon>email</mat-icon>
+        <a href="mailto:contact@coffeeman.com">contact@coffeeman.com</a>
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <h3 class="footer-title">
+        <mat-icon>schedule</mat-icon>
+        <span>Giờ mở cửa</span>
+      </h3>
+      <p class="footer-text">Thứ 2 - Thứ 6: 7:00 - 21:00</p>
+      <p class="footer-text">Cuối tuần: 8:00 - 22:00</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2023 CoffeeMan. All rights reserved.</p>
+    <div class="social-icons">
+      <!-- <a href="#"><mat-icon>facebook</mat-icon></a> -->
+      <a href="https://facebook.com" target="_blank"  rel="noopener">
+        <img src="https://www.svgrepo.com/show/333535/facebook-circle.svg" 
+             width="20" height="20"
+             alt="Facebook"
+             class="facebook-icon">
+      </a>
+      <a href="https://twitter.com" target="_blank"  rel="noopener">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" 
+             width="20" height="20"
+             alt="X (Twitter)"
+             class="x-icon">
+      </a>
+      <a href="https://instagram.com" target="_blank" rel="noopener">
+        <img src="https://icons.veryicon.com/png/o/miscellaneous/offerino-icons/instagram-53.png" 
+             width="20" height="20"
+             alt="Instagram"
+             class="instagram-icon">
+      </a>
+    </div>
+  </div>
+</footer>

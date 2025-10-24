@@ -1,0 +1,50 @@
+.container {
+    padding: 20px;
+    
+    .page-title {
+      font-size: 28px;
+      font-weight: 500;
+      color: #3f51b5;
+      
+    }
+
+    .date-range {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+
+    }
+          
+    .date-range mat-form-field {
+      width: 200px;
+    }
+  
+   :is(mat-card) {
+      margin-bottom: 20px;
+      max-width: 400px;
+    }
+    
+    :is(mat-card) h2 {
+      margin: 0;
+      color: #3f51b5;
+      text-align: center;
+    }
+    
+    .chart-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+      
+      .chart {
+        background: white;
+        padding: 20px;
+        border-radius: 4px;
+        box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+      }
+    }
+    
+    .spinner {
+      margin: 50px auto;
+    }
+  }
+

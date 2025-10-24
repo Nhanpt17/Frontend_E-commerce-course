@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Thông tin giao hàng</h2>
+
+<mat-stepper orientation="vertical" #stepper>
+
+  <!-- Bước 1: Số điện thoại -->
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Số điện thoại</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Số điện thoại</mat-label>
+        <input matInput placeholder="VD: 0901234567" formControlName="phone" required>
+        <mat-error *ngIf="firstFormGroup.get('phone')?.invalid && firstFormGroup.get('phone')?.touched">
+          Vui lòng nhập số điện thoại
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Tiếp theo</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Bước 2: Địa chỉ -->
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Địa chỉ giao hàng</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Địa chỉ</mat-label>
+        <input matInput placeholder="VD: 123 Đường ABC, Quận 1" formControlName="address" required>
+        <mat-error *ngIf="secondFormGroup.get('address')?.invalid && secondFormGroup.get('address')?.touched">
+          Vui lòng nhập địa chỉ
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Quay lại</button>
+        <button mat-button matStepperNext>Tiếp theo</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Bước 3: Thanh toán -->
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Phương thức thanh toán</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Thanh toán</mat-label>
+        <mat-select formControlName="payment" required>
+          <mat-option value="cash">Tiền mặt</mat-option>
+          <!-- <mat-option value="card">Thẻ</mat-option> -->
+          <mat-option value="momo">Momo</mat-option>
+        </mat-select>
+        <mat-error *ngIf="thirdFormGroup.get('payment')?.invalid && thirdFormGroup.get('payment')?.touched">
+          Vui lòng chọn phương thức thanh toán
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Quay lại</button>
+        <button mat-button color="primary" (click)="submit()">Xác nhận</button>
+      </div>
+    </form>
+  </mat-step>
+
+  
+
+</mat-stepper>
+<button mat-icon-button class="close-btn" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+

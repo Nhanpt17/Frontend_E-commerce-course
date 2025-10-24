@@ -1,0 +1,16 @@
+
+<h2 mat-dialog-title>Assign Delivery Staff</h2>
+    <mat-dialog-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Delivery Staff</mat-label>
+        <mat-select [(value)]="selectedStaffId">
+          <mat-option *ngFor="let staff of deliveryStaffs" [value]="staff.id">
+            {{ staff.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button (click)="onCancel()">Cancel</button>
+      <button mat-button color="primary" (click)="onAssign()" [disabled]="!selectedStaffId">Assign</button>
+    </mat-dialog-actions>

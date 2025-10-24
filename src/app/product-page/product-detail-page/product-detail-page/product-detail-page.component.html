@@ -1,0 +1,159 @@
+<div class="container">
+  <mat-card class="product-card">
+    <div class="product-container">
+      <!-- Ảnh sản phẩm -->
+      <div class="product-image">
+        <img [src]="product.imgUrl" [alt]="product.name" [class.out-of-stock-img]="product.stock <= 0" />
+        <!-- Overlay hết hàng -->
+        <div class="out-of-stock-overlay" *ngIf="product.stock <= 0">
+          <span>HẾT HÀNG</span>
+        </div>
+      </div>
+
+      <!-- Thông tin sản phẩm -->
+      <div class="product-info">
+        <!-- Tên sản phẩm -->
+        <h1>{{ product.name }}</h1>
+
+        <!-- Giá -->
+        <p class="price">{{ totalPrice | number }} đ</p>
+
+        <!-- Mô tả -->
+        <p class="description">{{ product.description }}</p>
+
+        <!-- Số lượng và stock -->
+        <div class="stock-info">
+          <div class="quantity-control" *ngIf="product.stock > 0">
+            <button mat-icon-button (click)="decreaseQuantity()">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <!-- <input type="number" [(ngModel)]="quantity" min="1" [max]="product.stock"
+              (ngModelChange)="updateTotalPrice()" /> -->
+            <input #quantityInput type="number" [(ngModel)]="quantity" min="1" [max]="product.stock"
+              (ngModelChange)="validateQuantity($event)" 
+              (keypress)="preventInvalidInput($event)"/>
+            <button mat-icon-button (click)="increaseQuantity()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <p class="stock" [class.out-of-stock]="product.stock <= 0">
+            {{ product.stock > 0 ? 'Còn ' + product.stock + ' sản phẩm' : 'Tạm hết hàng' }}
+          </p>
+        </div>
+
+        <!-- Nút hành động -->
+        <div class="actions">
+          <button mat-raised-button class="buy-now" (click)="buyNow2Parameter(product,quantity)"
+            [disabled]="product.stock <= 0">
+            Mua Ngay
+          </button>
+          <button mat-raised-button class="add-cart" (click)="addToCart2Parameter(product,quantity)"
+            [disabled]="product.stock <= 0">
+            Thêm vào giỏ hàng
+          </button>
+        </div>
+
+        <!-- Đánh giá -->
+        <div class="ratings">
+          <mat-icon color="warn">star</mat-icon>
+          <span>{{ averageRating | number:'1.1-1' }}/5 ({{ reviewCount }} đánh giá)</span>
+        </div>
+      </div>
+    </div>
+
+  </mat-card>
+
+
+  <!-- Sản phẩm liên quan -->
+  <div class="related-products">
+    <h2>Sản phẩm liên quan</h2>
+    <div class="related-grid">
+      <div class="related-item" *ngFor="let item of relatedProducts" [class.out-of-stock-card]="item.stock <= 0"
+        (click)="viewProductDetails(item.id, item.categoryId)">
+        <div class="related-image-container">
+          <img [src]="item.imgUrl" [alt]="item.name" class="related-image" [class.out-of-stock-img]="item.stock <= 0" />
+          <div class="out-of-stock-overlay" *ngIf="item.stock <= 0">
+            <span>HẾT HÀNG</span>
+          </div>
+          <div class="overlay" *ngIf="item.stock > 0">
+            <button class="buy-now" (click)="buyNow(item); $event.stopPropagation()">MUA NGAY</button>
+            <button class="add-to-cart" (click)="addToCart(item); $event.stopPropagation()">
+              THÊM VÀO GIỎ HÀNG
+            </button>
+          </div>
+        </div>
+        <div class="related-info">
+          <h3 class="name">{{ item.name }}</h3>
+          <p class="price">{{ item.price | number }} đ</p>
+          <p class="stock" [class.out-of-stock]="item.stock <= 0">
+            {{ item.stock > 0 ? 'Còn ' + item.stock + ' sản phẩm' : 'Hết hàng' }}
+          </p>
+        </div>
+        <div class="ratings" *ngIf="item.averageRating">
+          <mat-icon color="warn">star</mat-icon>
+          <span>{{ item.averageRating | number:'1.1-1' }}/5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="reviews-container">
+
+    <!-- Phần đánh giá chi tiết -->
+    <div class="reviews-section" *ngIf="reviewCount > 0">
+      <h2>Đánh giá từ khách hàng</h2>
+      <div class="review-list">
+        <mat-card class="review-card" *ngFor="let review of reviews">
+          <mat-card-header>
+            <div mat-card-avatar class="review-avatar">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <mat-card-title>{{ review.username || 'Khách hàng' }}</mat-card-title>
+            <mat-card-subtitle>
+              <span class="review-rating">
+                <mat-icon *ngFor="let star of [1,2,3,4,5]" [color]="star <= review.rating ? 'warn' : 'basic'">
+                  {{ star <= review.rating ? 'star' : 'star_border' }} </mat-icon>
+              </span>
+              {{ review.createdAt | date:'dd/MM/yyyy' }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ review.comment }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Phần form đánh giá (nếu đã đăng nhập) -->
+    <div *ngIf="isAuthenticated">
+
+      <button mat-raised-button color="primary" class="show-comment-btn" (click)="toggleCommentSection()">
+        {{ showCommentSection ? 'Ẩn bình luận' : 'Viết đánh giá' }}
+      </button>
+
+      <div class="add-review" *ngIf="showCommentSection">
+        <h2>Viết đánh giá của bạn</h2>
+        <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+          <div class="rating-input">
+            <span>Đánh giá của bạn:</span>
+            <mat-icon *ngFor="let star of [1,2,3,4,5]" (click)="setRating(star)"
+              [color]="star <= selectedRating ? 'warn' : 'basic'">
+              {{ star <= selectedRating ? 'star' : 'star_border' }} </mat-icon>
+          </div>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nhận xét của bạn</mat-label>
+            <textarea matInput formControlName="comment" rows="4"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit"
+            [disabled]="!reviewForm.valid || selectedRating === 0">
+            Gửi đánh giá
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

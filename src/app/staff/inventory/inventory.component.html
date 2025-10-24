@@ -1,0 +1,97 @@
+<div class="inventory-container">
+    <h2>Kiểm kho sản phẩm</h2>
+    
+    <!-- Bộ lọc và tìm kiếm -->
+    <div class="filter-section">
+      <mat-form-field appearance="outline">
+        <mat-label>Danh mục</mat-label>
+        <mat-select [(value)]="selectedCategory" (selectionChange)="filterProducts()">
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="search-field">
+        <input matInput placeholder="Tìm kiếm sản phẩm" [(ngModel)]="searchTerm" (input)="applySearch()">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  
+    <!-- Thống kê tồn kho -->
+    <div class="inventory-stats">
+      <mat-card>
+        <mat-card-content>
+          <div class="stat-item">
+            <span class="stat-label">Tổng sản phẩm:</span>
+            <span class="stat-value">{{totalProducts}}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Sản phẩm hết hàng:</span>
+            <span class="stat-value">{{outOfStockProducts}}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Sản phẩm sắp hết:</span>
+            <span class="stat-value">{{lowStockProducts}}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+    <!-- Bảng danh sách sản phẩm -->
+    <div class="product-table">
+      <table mat-table [dataSource]="paginatedProducts" class="mat-elevation-z8">
+        <!-- Cột Ảnh -->
+        <ng-container matColumnDef="image">
+          <th mat-header-cell *matHeaderCellDef>Ảnh</th>
+          <td mat-cell *matCellDef="let product">
+            <img [src]="product.imgUrl || 'assets/default-product.png'" 
+                 alt="{{product.name}}" class="product-image">
+          </td>
+        </ng-container>
+  
+        <!-- Cột Tên sản phẩm -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Tên sản phẩm</th>
+          <td mat-cell *matCellDef="let product">{{product.name}}</td>
+        </ng-container>
+  
+        <!-- Cột Danh mục -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>Danh mục</th>
+          <td mat-cell *matCellDef="let product">{{getCategoryName(product.categoryId)}}</td>
+        </ng-container>
+  
+        <!-- Cột Giá -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Giá</th>
+          <td mat-cell *matCellDef="let product">{{product.price | currency:'VND':'symbol':'1.0-0'}}</td>
+        </ng-container>
+  
+        <!-- Cột Tồn kho -->
+        <ng-container matColumnDef="stock">
+          <th mat-header-cell *matHeaderCellDef>Tồn kho</th>
+          <td mat-cell *matCellDef="let product">
+            <span [class.out-of-stock]="product.stock <= 0" 
+                  [class.low-stock]="product.stock > 0 && product.stock <= 5">
+              {{product.stock}}
+            </span>
+            <span *ngIf="product.stock <= 0" class="stock-status">(Hết hàng)</span>
+            <span *ngIf="product.stock > 0 && product.stock <= 5" class="stock-status">(Sắp hết)</span>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+
+      
+      <mat-paginator [length]="filteredProducts.length"
+                    [pageIndex]="currentPage"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     (page)="pageChanged($event)">
+      </mat-paginator>
+    </div>
+  </div>

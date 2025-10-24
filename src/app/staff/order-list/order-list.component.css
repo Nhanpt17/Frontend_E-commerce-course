@@ -1,0 +1,98 @@
+.container {
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .customer-info .name {
+    font-weight: 500;
+  }
+  
+  .customer-info .contact {
+    font-size: 0.8em;
+    color: #666;
+  }
+  
+  .price {
+    font-weight: 500;
+  }
+  
+  .date {
+    font-size: 0.8em;
+    color: #666;
+  }
+  
+  /* Status chip styles */
+  /* Base style cho chip */
+mat-chip {
+  font-weight: 500;
+  font-size: 13px;
+  color: white;
+}
+
+/* Trạng thái PENDING - Chờ quán xác nhận */
+mat-chip.pending {
+  background-color: #ff9800; /* cam */
+}
+
+/* Trạng thái PLACED - Đã đặt hàng */
+mat-chip.placed {
+  background-color: #3f51b5; /* xanh dương đậm */
+}
+
+/* Trạng thái DELIVERING - Đang giao */
+mat-chip.delivering {
+  background-color: #2196f3; /* xanh trời */
+}
+
+/* Trạng thái COMPLETED - Giao thành công */
+mat-chip.completed {
+  background-color: #4caf50; /* xanh lá */
+}
+
+/* Trạng thái CANCELLED - Đơn bị hủy */
+mat-chip.cancelled {
+  background-color: #f44336; /* đỏ */
+}
+
+  /* order-list.component.css */
+.table-container {
+  overflow-x: auto;
+}
+
+mat-paginator {
+  margin-top: 20px;
+  background: transparent;
+}
+
+/* Tùy chỉnh giao diện phân trang nếu cần */
+.mat-paginator-page-size {
+  align-items: center;
+}
+
+.mat-paginator-range-actions {
+  margin-left: 10px;
+}
+
+/* Thêm vào CSS */
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>
+    {{ isEditMode ? 'Cập nhật danh mục' : 'Thêm danh mục' }}
+  </h2>
+
+<mat-dialog-content>
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width" style="margin-top: 5px;">
+        <mat-label>Tên danh mục</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="categoryForm.get('name')?.hasError('minlength')">
+          Tên danh mục phải có ít nhất 3 ký tự.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Mô tả</mat-label>
+        <input matInput type="text" formControlName="description" required>
+      </mat-form-field>
+  
+      <div class="button-container">
+        <button mat-button mat-dialog-close>Hủy</button>
+        <button mat-raised-button color="accent" type="submit" [disabled]="categoryForm.invalid">
+          {{ isEditMode ? 'Cập nhật' : 'Thêm' }}
+        </button>
+      </div>
+    </form>
+  </mat-dialog-content>

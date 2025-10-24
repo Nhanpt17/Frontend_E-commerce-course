@@ -1,0 +1,98 @@
+.product-container {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /*background: linear-gradient(to bottom, #4e342e, #3e2723);*/
+    background-color: #f6f6f6;
+    
+  }
+  
+  .product-card {
+    font-family: Arial, sans-serif;
+    padding: 30px;
+    width: 400px;
+ 
+    background: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+  }
+  
+  .title {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #1d1f2e;
+    margin-bottom: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .product-btn {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    background-color:  #1d1f2e;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .product-btn:hover {
+    background-color: #5d4037;
+  }
+
+  .file-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 16px;
+    box-shadow: none;  /* Xóa bóng */
+    border: none;       /* Xóa viền */
+    background: transparent; /* Xóa nền nếu có */
+}
+
+.file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Khoảng cách giữa icon và chữ */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 12px; /* Tạo khoảng cách với field bên dưới */
+    
+}
+
+.preview-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.image-card {
+    max-width: 200px; /* Giảm kích thước ảnh */
+    max-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    
+}
+
+.preview-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}

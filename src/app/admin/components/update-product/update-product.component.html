@@ -1,0 +1,68 @@
+<div class="update-product-container">
+    <mat-card class="update-product-card">
+        <mat-card-title class="title">Cập nhật sản phẩm</mat-card-title>
+        <form [formGroup]="productForm" (ngSubmit)="updateProduct()">
+
+            <mat-card class="file-upload-container">
+                <label class="file-upload-label">
+                    <span>Chọn tệp tải lên</span>
+                    <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
+                    <mat-icon>attach_file</mat-icon>
+                </label>
+
+                <div *ngIf="imagePreview" class="preview-container">
+                    <mat-card class="image-card">
+                        <img [src]="imagePreview" alt="Product Image" class="preview-image">
+                    </mat-card>
+                </div>
+            </mat-card>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Chọn danh mục</mat-label>
+                <mat-select formControlName="categoryId" required>
+                    <mat-option *ngFor="let category of categories" [value]="category.id">
+                        {{category.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Tên sản phẩm</mat-label>
+                <input matInput type="text" formControlName="name" required>
+                <mat-error *ngIf="productForm.get('name')?.hasError('minlength')">
+                    Tên sản phẩm phải có ít nhất 3 ký tự.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Giá (VND)</mat-label>
+                <input matInput type="number" formControlName="price" required min="1000">
+                <mat-error *ngIf="productForm.get('price')?.hasError('required')">
+                    Giá sản phẩm là bắt buộc.
+                </mat-error>
+                <mat-error *ngIf="productForm.get('price')?.hasError('min')">
+                    Giá sản phẩm phải từ 1,000 VND trở lên.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Số lượng tồn kho</mat-label>
+                <input matInput type="number" formControlName="stock" required min="0" step="1">
+                <mat-error *ngIf="productForm.get('stock')?.hasError('required')">
+                    Số lượng tồn kho là bắt buộc.
+                </mat-error>
+                <mat-error *ngIf="productForm.get('stock')?.hasError('min')">
+                    Số lượng tồn kho không được âm.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Mô tả</mat-label>
+                <textarea matInput formControlName="description" ></textarea>
+            </mat-form-field>
+
+            <button mat-raised-button color="accent" type="submit" class="update-product-btn"
+                [disabled]="productForm.invalid">Sửa</button>
+        </form>
+    </mat-card>
+</div>

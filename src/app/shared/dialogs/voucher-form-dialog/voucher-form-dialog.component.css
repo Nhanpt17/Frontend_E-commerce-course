@@ -1,0 +1,22 @@
+/* voucher-form-dialog.component.scss */
+.full-width {
+    width: 100%;
+  }
+  
+  .half-width {
+    width: calc(50% - 8px);
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  
+  .toggle-margin {
+    margin-left: 16px;
+  }
+  
+  mat-form-field {
+    margin-bottom: 8px;
+  }

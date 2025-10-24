@@ -1,0 +1,54 @@
+
+
+<div class="product-page">
+  <!-- Tiêu đề -->
+  <div class="product-header">
+    <h1 class="product-title">Sản phẩm của chúng tôi</h1>
+    <p class="product-slogan">Nâng tầm hương vị - Chạm đến đẳng cấp!</p>
+  </div>
+
+  <mat-button-toggle-group class="product-filters" [(ngModel)]="selectedCategory" name="fontStyle"
+    aria-label="Font Style" (change)="filterProducts()">
+    <mat-button-toggle *ngFor="let category of categories" [value]="category" class="filter-button">
+      {{ category.name }}
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <!-- Danh sách sản phẩm -->
+  <div class="product-grid">
+    <div class="product-card" *ngFor="let product of paginatedProducts" 
+         [class.out-of-stock-card]="product.stock <= 0"
+         (click)="product.stock > 0 ? viewProductDetails(product.id,product.categoryId) : null">
+      <div class="product-image-container">
+        <img [src]="product.imgUrl" [alt]="product.name" class="product-image" 
+             [class.out-of-stock-img]="product.stock <= 0" />
+        
+        <!-- Overlay hết hàng -->
+        <div class="out-of-stock-overlay" *ngIf="product.stock <= 0">
+          <span>HẾT HÀNG</span>
+        </div>
+        
+        <!-- Overlay nút mua hàng (chỉ hiện khi còn hàng) -->
+        <div class="overlay" *ngIf="product.stock > 0">
+          <button class="buy-now" (click)="buyNow(product); $event.stopPropagation()">MUA NGAY</button>
+          <button class="add-to-cart" (click)="addToCart(product); $event.stopPropagation()">
+            THÊM VÀO GIỎ HÀNG
+          </button>
+        </div>
+      </div>
+      <div class="product-info">
+        <h3>{{ product.name }}</h3>
+        <p class="price">{{ product.price | number : "1.0-0" }} đ</p>
+        <p class="stock" [class.out-of-stock]="product.stock <= 0">
+          {{ product.stock > 0 ? 'Còn ' + product.stock + ' sản phẩm' : 'Tạm hết hàng' }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pagination-container">
+  <mat-paginator [length]="filteredProducts.length" [pageSize]="pageSize" 
+    [pageSizeOptions]="[8, 12, 16]" [pageIndex]="currentPage" (page)="pageChanged($event)">
+  </mat-paginator>
+</div>

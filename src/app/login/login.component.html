@@ -1,0 +1,67 @@
+
+  <div class="login-container">
+    <mat-card class="login-card">
+      <mat-card-title class="title">Đăng nhập tài khoản</mat-card-title>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="username" required>
+           <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+            Email là bắt buộc.
+          </mat-error> 
+          <mat-error *ngIf="loginForm.get('username')?.hasError('email')">
+            Email không hợp lệ.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Mật khẩu</mat-label>
+          <input matInput type="password" formControlName="password" required>
+           <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Mật khẩu là bắt buộc.
+          </mat-error> 
+         
+        </mat-form-field>
+  
+        
+
+        <button mat-raised-button color="accent" type="submit" class="login-btn" [disabled]="loginForm.invalid">
+          Đăng nhập
+        </button>
+        
+
+      </form>
+      
+    
+      <span style="margin-top: 20px; text-align: center; color:  #ccc;;font-size: 10px;margin-bottom: 0;">HOẶC</span>
+      <mat-divider></mat-divider>
+
+      <mat-card-actions class="social-login" style="margin-top: 10px;">
+        <button mat-button class="facebook-btn" (click)="facebookLogin()">
+          <mat-icon class="social-icon">facebook</mat-icon>
+          Đăng nhập bằng Facebook
+        </button>
+        <button  class="google-btn" (click)="googleLogin()" >
+          <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" 
+           alt="Google logo" class="social-icon-svg">
+          Đăng nhập bằng Google
+       </button>
+
+      </mat-card-actions>
+      
+      <mat-card-actions >
+        <button mat-button color="accent" routerLink="/signup" class="siguptitle">Bạn chưa có tài khoản? Đăng ký</button>
+      </mat-card-actions>
+      <button mat-button color="warn" routerLink="/forget-password" class="siguptitle">Quên mật khẩu?</button>
+
+    </mat-card>
+  </div>
+  
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  
+  

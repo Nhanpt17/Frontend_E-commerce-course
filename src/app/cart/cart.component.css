@@ -1,0 +1,366 @@
+.cart-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #171615; /* Màu nâu cà phê thay vì xanh */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-transform: uppercase; /* Viết hoa nếu muốn nổi bật */
+  letter-spacing: 1px; /* Giãn chữ */
+}
+
+/* Thêm hiệu ứng cho icon */
+
+
+.cart-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.cart-table-container {
+  overflow-x: auto;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: center;
+  padding: 12px;
+  vertical-align: middle;
+}
+
+th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.product-img {
+  width: 50px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.quantity-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-control button {
+  font-size: 20px;
+  background: none;
+  border: 1px solid #ccc;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity-control button:hover {
+  background-color: #e0e0e0;
+  color: #3f51b5;
+}
+
+.summary-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.cart-summary-left, .cart-summary-center, .cart-summary-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.discount-toggle {
+  margin-bottom: 10px;
+}
+
+/* Container chính */
+.discount-container {
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Nút toggle */
+.discount-toggle-btn {
+  border-radius: 20px;
+  padding: 0 16px;
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  
+}
+
+.discount-toggle-btn mat-icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+/* Nhóm input */
+.discount-input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+.discount-form-field {
+  width: 100%;
+  max-width: 300px;
+  
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+}
+
+/* Nút áp dụng */
+.apply-btn {
+  transform: translateY(-6px);
+  &:hover {
+    background: rgba(63, 81, 181, 0.1);
+  }
+}
+
+/* Thông báo */
+.discount-applied-message {
+  color: #4CAF50;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 14px;
+ 
+}
+
+.discount-applied-message mat-icon{
+    font-size: 18px;
+    margin-right: 6px;
+}
+
+.invalid-discount {
+  color: #F44336;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 14px;
+  
+}
+
+.invalid-discount mat-icon {
+  font-size: 18px;
+  margin-right: 6px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.price-summary p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.price-summary h3 {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #d32f2f;
+}
+
+.cart-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: center;
+  gap: 20px;
+}
+
+.cart-summary-left, .cart-summary-center, .cart-summary-right {
+  width: 33%;
+}
+
+.cart-summary-left, .cart-summary-center {
+  text-align: left;
+}
+
+.cart-summary-right {
+  text-align: right;
+}
+
+.cart-summary-left button, .cart-summary-right button {
+  width: 100%;
+}
+
+.cart-summary-center p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.cart-summary-right h3 {
+  font-size: 24px;
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+
+/* Thêm vào cuối file CSS */
+
+/* Điều chỉnh kích thước các nút */
+.cart-summary-left button, 
+.cart-summary-right button {
+  width: auto; /* Thay đổi từ width: 100% */
+  padding: 0 16px; /* Thêm padding để nút không quá sát nội dung */
+  white-space: nowrap; /* Ngăn nội dung nút xuống dòng */
+}
+
+/* Cụ thể cho nút Xóa tất cả */
+.cart-summary-left button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Cụ thể cho nút Áp dụng mã giảm giá */
+.cart-summary-right button[color="primary"]:first-child {
+  margin-bottom: 15px; /* Giữ khoảng cách với các phần tử khác */
+}
+
+/* Cụ thể cho nút Đặt mua */
+.cart-summary-right button[color="primary"]:last-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Đảm bảo container không bị ảnh hưởng bởi kích thước nút */
+.cart-summary-left, 
+.cart-summary-right {
+  align-items: flex-start; /* Căn trái cho các nút */
+}
+
+.cart-summary-right {
+  align-items: flex-end; /* Căn phải cho các nút */
+}
+
+/* CSS đi kèm */
+.minimal-coffee-btn {
+  color: #000;           /* Chữ đen */
+  border: 1px solid #000; /* Viền đen */
+  border-radius: 24px;
+  padding: 0 24px;
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.minimal-coffee-btn:hover {
+  background: rgba(0,0,0,0.05); /* Màu hover nhẹ */
+}
+
+.minimal-coffee-btn mat-icon {
+  color: #000; /* Icon đen */
+}
+
+/* Thông báo miễn phí ship */
+.free-ship-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2e7d32;
+  background-color: #f1f8e9;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.free-ship-notice mat-icon {
+  color: #2e7d32;
+  font-size: 20px;
+}
+
+.free-ship-text {
+  color: #d32f2f;
+  text-transform: uppercase;
+}
+
+/* Bảng tổng hợp thanh toán */
+.payment-summary {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.discount-row {
+  color: #388e3c;
+}
+
+.discount-amount {
+  color: #388e3c;
+  font-weight: 500;
+}
+
+.total-row {
+  font-weight: 500;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #ddd;
+}
+
+.total-amount {
+  color: #d32f2f;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Voucher section styles */
+.discount-container {
+  margin-bottom: 20px;
+}
+
+.public-vouchers-container {
+  margin-top: 15px;
+}
+
+.voucher-select-field {
+  width: 100%;
+}
+
+.remove-voucher-btn {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.invalid-discount {
+  color: #f44336;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.invalid-discount mat-icon {
+  margin-right: 5px;
+  font-size: 18px;
+}

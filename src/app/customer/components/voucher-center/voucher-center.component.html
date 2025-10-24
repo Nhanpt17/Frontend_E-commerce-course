@@ -1,0 +1,113 @@
+
+<div class="voucher-center-container">
+  <!-- Points Balance Section -->
+  <div class="points-section mat-elevation-z2" *ngIf="customerPoints">
+    <div class="points-balance">
+      <mat-icon class="points-icon">loyalty</mat-icon>
+      <div>
+        <h2 class="points-title">Điểm thưởng của bạn</h2>
+        <p class="points-value">{{customerPoints.balance | number}} điểm</p>
+      </div>
+    </div>
+    <div class="points-info">
+      <p>Đổi điểm để nhận các Voucher độc quyền bên dưới</p>
+    </div>
+  </div>
+
+  <!-- Available Vouchers Section -->
+  <div class="section mat-elevation-z1">
+    <div class="section-header">
+      <h2><mat-icon>local_offer</mat-icon> Voucher hiện có</h2>
+    </div>
+    
+    <div *ngIf="publicVouchers.length === 0" class="no-vouchers">
+      <mat-icon>sentiment_dissatisfied</mat-icon>
+      <p>Hiện không có Voucher nào. Vui lòng quay lại sau.</p>
+    </div>
+    
+    <div class="voucher-grid">
+      <mat-card *ngFor="let voucher of publicVouchers" class="voucher-card">
+        <div class="voucher-badge" *ngIf="voucher.discountType === 'PERCENTAGE'">%</div>
+        <div class="voucher-badge" *ngIf="voucher.discountType === 'FIXED_AMOUNT'">₫</div>
+        <div class="voucher-badge" *ngIf="voucher.discountType === 'SHIPPING_PERCENTAGE'">%</div>
+
+        <mat-card-header>
+          <mat-card-title class="voucher-code">{{voucher.code}}</mat-card-title>
+          <mat-card-subtitle class="voucher-value">
+            <span class="discount-amount">
+              {{voucher.discountType === 'FIXED_AMOUNT' ? 
+                (voucher.discountValue | currency:'VND':'symbol':'1.0-0') : 
+                voucher.discountValue + '%'}}
+            </span>
+            <span *ngIf="voucher.minimumOrderValue > 0" class="min-order">
+              Đơn hàng tối thiểu: {{voucher.minimumOrderValue | currency:'VND':'symbol':'1.0-0'}}
+            </span>
+          </mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content class="voucher-content">
+          <p class="voucher-description">{{voucher.description}}</p>
+          <div class="voucher-expiry">
+            <mat-icon class="expiry-icon">event</mat-icon>
+            <span>Có hiệu lực đến: {{voucher.endDate | date:'mediumDate'}}</span>
+          </div>
+        </mat-card-content>
+        
+        <mat-card-actions class="voucher-actions">
+          <button mat-raised-button color="primary" (click)="openRedeemDialog(voucher)" 
+                  class="action-button">
+            <mat-icon>card_giftcard</mat-icon> Nhận Voucher
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- My Vouchers Section -->
+  <div class="section mat-elevation-z1">
+    <div class="section-header">
+      <h2><mat-icon>wallet</mat-icon> Voucher của tôi</h2>
+    </div>
+    
+    <div *ngIf="myVouchers.length === 0" class="no-vouchers">
+      <mat-icon>sentiment_dissatisfied</mat-icon>
+      <p>Bạn chưa có Voucher nào. Hãy đổi một số từ các Voucher hiện có!</p>
+    </div>
+    
+    <div class="voucher-grid">
+      <mat-card *ngFor="let voucher of myVouchers" class="voucher-card my-voucher">
+        <div class="voucher-badge" *ngIf="voucher.discountType === 'PERCENTAGE'">%</div>
+        <div class="voucher-badge" *ngIf="voucher.discountType === 'FIXED_AMOUNT'">₫</div>
+        <div class="voucher-badge" *ngIf="voucher.discountType === 'SHIPPING_PERCENTAGE'">%</div>
+        <mat-card-header>
+          <mat-card-title class="voucher-code">{{voucher.code}}</mat-card-title>
+          <mat-card-subtitle class="voucher-value">
+            <span class="discount-amount">
+              {{voucher.discountType === 'FIXED_AMOUNT' ? 
+                (voucher.discountValue | currency:'VND':'symbol':'1.0-0') : 
+                voucher.discountValue + '%'}}
+            </span>
+            <span *ngIf="voucher.minimumOrderValue > 0" class="min-order">
+              Đơn hàng tối thiểu: {{voucher.minimumOrderValue | currency:'VND':'symbol':'1.0-0'}}
+            </span>
+          </mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content class="voucher-content">
+          <p class="voucher-description">{{voucher.description}}</p>
+          <div class="voucher-expiry">
+            <mat-icon class="expiry-icon">event</mat-icon>
+            <span>Có hiệu lực đến: {{voucher.endDate | date:'mediumDate'}}</span>
+          </div>
+        </mat-card-content>
+        
+        <mat-card-actions class="voucher-actions">
+          <button mat-raised-button color="accent" class="action-button" [routerLink]="['/cart']"
+    routerLinkActive="router-link-active">
+            <mat-icon>shopping_cart</mat-icon> Sử dụng Voucher
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

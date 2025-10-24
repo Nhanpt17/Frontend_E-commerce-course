@@ -1,0 +1,121 @@
+<!-- new-->
+<div class="voucher-container">
+  <div class="header-container">
+    <div class="header-content">
+      <h1 class="page-title">Quản lý Voucher</h1>
+      <button mat-flat-button color="primary" (click)="openAddDialog()" class="add-button">
+        <mat-icon>add</mat-icon> Thêm Voucher
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="table-container">
+    <mat-table [dataSource]="dataSource" class="voucher-table mat-elevation-z4">
+      <!-- Code Column -->
+      <ng-container matColumnDef="code">
+        <mat-header-cell *matHeaderCellDef class="header-cell"> Mã Voucher </mat-header-cell>
+        <mat-cell *matCellDef="let voucher" class="code-cell"> 
+          <span class="voucher-code">{{voucher.code}}</span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef class="header-cell"> Mô tả </mat-header-cell>
+        <mat-cell *matCellDef="let voucher" class="description-cell"> 
+          <span matTooltip="{{voucher.description}}" matTooltipPosition="above">
+            {{ voucher.description?.length > 50 ? (voucher.description | slice:0:50) + '...' : voucher.description }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Discount Column -->
+      <ng-container matColumnDef="discount">
+        <mat-header-cell *matHeaderCellDef class="header-cell"> Giảm giá </mat-header-cell>
+        <mat-cell *matCellDef="let voucher" class="discount-cell"> 
+          <div class="discount-value">
+            <span class="discount-amount" [ngClass]="{'fixed-amount': voucher.discountType === 'FIXED_AMOUNT'}">
+              {{voucher.discountType === 'FIXED_AMOUNT' ? (voucher.discountValue | currency:'VND':'symbol':'1.0-0') : voucher.discountValue + '%'}}
+            </span>
+            <span *ngIf="voucher.minimumOrderValue > 0" class="min-order">
+              (Đơn tối thiểu {{voucher.minimumOrderValue | currency:'VND':'symbol':'1.0-0'}})
+            </span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Dates Column -->
+      <ng-container matColumnDef="dates">
+        <mat-header-cell *matHeaderCellDef class="header-cell"> Thời gian áp dụng </mat-header-cell>
+        <mat-cell *matCellDef="let voucher" class="date-cell"> 
+          <div class="date-range">
+            <div class="date-item">
+              <mat-icon class="date-icon">event_available</mat-icon>
+              <span>{{voucher.startDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="date-item">
+              <mat-icon class="date-icon">event_busy</mat-icon>
+              <span>{{voucher.endDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Usage Column -->
+      <ng-container matColumnDef="usage">
+        <mat-header-cell *matHeaderCellDef class="header-cell"> Lượt sử dụng </mat-header-cell>
+        <mat-cell *matCellDef="let voucher" class="usage-cell"> 
+          <mat-progress-bar 
+            mode="determinate" 
+            [value]="(voucher.currentUsage / (voucher.maxUsage || 100)) * 100"
+            color="primary"
+            class="usage-bar">
+          </mat-progress-bar>
+          <div class="usage-text">
+            {{voucher.currentUsage}} / {{voucher.maxUsage || '∞'}}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef class="header-cell"> Trạng thái </mat-header-cell>
+        <mat-cell *matCellDef="let voucher" class="status-cell"> 
+          <div class="status-container">
+            <mat-chip-set>
+              <mat-chip *ngIf="voucher.public" class="points-chip" selected>
+                <mat-icon class="chip-icon">military_tech</mat-icon>
+                {{voucher.pointsRequired}} 
+              </mat-chip>
+              <mat-chip [ngClass]="voucher.public ? 'public' : 'private'" selected class="status-chip">
+                {{voucher.public ? 'Công khai' : 'Riêng tư'}}
+              </mat-chip>
+            </mat-chip-set>
+            <div class="active-indicator" [ngClass]="{'active': isVoucherActive(voucher)}">
+              {{isVoucherActive(voucher) ? 'Đang hoạt động' : 'Hết hạn'}}
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="header-cell"> Hành động </mat-header-cell>
+        <mat-cell *matCellDef="let voucher" class="action-cell"> 
+          <div class="action-buttons">
+            <button mat-icon-button color="primary" (click)="openEditDialog(voucher)" matTooltip="Chỉnh sửa">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteVoucher(voucher.id)" matTooltip="Xóa">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row"></mat-row>
+    </mat-table>
+  </div>
+</div>

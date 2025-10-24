@@ -1,0 +1,115 @@
+<!-- new-->
+<div class="product-management-container">
+  <div class="header-container">
+    <div class="header-content">
+      <h1 class="page-title">Quản lý sản phẩm</h1>
+      <button mat-flat-button color="primary" [routerLink]="['/admin/product']" class="add-button">
+        <mat-icon>add</mat-icon> Thêm sản phẩm
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="table-container">
+    <mat-table [dataSource]="dataSource" class="product-table mat-elevation-z4">
+      <!-- STT Column -->
+      <ng-container matColumnDef="stt">
+        <mat-header-cell *matHeaderCellDef class="header-cell">STT</mat-header-cell>
+        <mat-cell *matCellDef="let product; let i = index" class="index-cell">
+          {{ getDisplayedIndex(i) }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Image Column -->
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Hình ảnh</mat-header-cell>
+        <mat-cell *matCellDef="let product" class="image-cell">
+          <img [src]="product.imgUrl || 'assets/images/default-product.png'" 
+               alt="Product Image" 
+               class="product-image"
+               matTooltip="Xem hình ảnh"
+               matTooltipPosition="above">
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Tên sản phẩm</mat-header-cell>
+        <mat-cell *matCellDef="let product" class="name-cell">
+          <span class="product-name" matTooltip="{{product.name}}" matTooltipPosition="above">
+          
+            {{ product.name?.length > 50 ? (product.name | slice:0:50) + '...' : product.name }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Mô tả</mat-header-cell>
+        <mat-cell *matCellDef="let product" class="description-cell">
+          <span matTooltip="{{product.description}}" matTooltipPosition="above">
+            
+            {{ product.description?.length > 50 ? (product.description | slice:0:50) + '...' : product.description }}
+
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Giá bán</mat-header-cell>
+        <mat-cell *matCellDef="let product" class="price-cell">
+          <span class="price-value">{{ product.price | currency:'VND':'symbol':'1.0-0' }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Stock Column -->
+      <ng-container matColumnDef="stock">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Tồn kho</mat-header-cell>
+        <mat-cell *matCellDef="let product" >
+          <span [class]="getStockStatusClass(product.stock)" style="margin-left: 20px;">{{ product.stock }}</span>
+          
+        </mat-cell>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Danh mục</mat-header-cell>
+        <mat-cell *matCellDef="let product" class="category-cell">
+          <mat-chip [ngClass]="'category-chip'" selected>{{ product.categoryName }}</mat-chip>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="header-cell">Thao tác</mat-header-cell>
+        <mat-cell *matCellDef="let product" class="actions-cell">
+          <div class="action-buttons">
+            <button mat-icon-button color="primary" 
+                    [routerLink]="['/admin/product', product.id]"
+                    matTooltip="Chỉnh sửa">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" 
+                    (click)="openConfirmDialog(product.id)"
+                    matTooltip="Xóa">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row"></mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               [pageIndex]="pageIndex"
+               (page)="handlePageEvent($event)"
+               showFirstLastButtons
+               class="product-paginator">
+</mat-paginator>
+  </div>
+</div>

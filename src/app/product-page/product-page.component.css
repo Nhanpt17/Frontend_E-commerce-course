@@ -1,0 +1,222 @@
+.product-page {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+  }
+
+ /* Tiêu đề sản phẩm */
+/* Tiêu đề sản phẩm */
+.product-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.product-header::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 3px;
+  background: #a25f4b;
+  margin: 15px auto 0;
+}
+
+.product-title {
+  font-size: 2.5rem;
+  color: #1C1C1C; /* Màu đen sang trọng */
+  font-weight: 400;
+}
+
+.product-slogan {
+  font-size: 1.2rem;
+  color: #666; /* Màu xám nhẹ */
+}
+  
+  
+  /* Lưới sản phẩm */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Thẻ sản phẩm */
+  .product-card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-image-container {
+    position: relative;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+  
+  /* Hiệu ứng hover cho nút */
+  .overlay {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transition: bottom 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  
+  .product-card:hover .overlay {
+    bottom: 10px;
+    opacity: 1;
+  }
+  
+  /* Nút mua và thêm giỏ hàng */
+  .buy-now,
+  .add-to-cart {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .buy-now {
+    background: rgba(255, 87, 34, 0.7);
+    color: white;
+  }
+  
+  .buy-now:hover {
+    background: #e64a19;
+  }
+  
+  .add-to-cart {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+  }
+  
+  .add-to-cart:hover {
+    background: black;
+  }
+  
+ /* Bộ lọc sản phẩm */
+/* Định dạng bộ lọc */
+.product-filters {
+  display: flex;
+  justify-content: center;
+  border: none;
+  margin-bottom: 20px;
+  position: relative;
+  align-items: center;
+}
+
+.product-filters::before,
+.product-filters::after {
+  margin: 0 20px; /* 👈 Tạo khoảng cách giữa đường kẻ và button */
+  content: "";
+  width: 70px;
+  height: 1.6px;
+  background-color: #ddd; /* Đường kẻ mờ */
+}
+
+/* Nút lọc */
+.filter-button {
+  background-color: white;
+  color: #8D6E63; /* Nâu nhẹ */
+   border: 2px solid #E0C3A5; 
+  /*border-radius: 5px; */
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  padding-left: 10px;
+  padding-right: 10px;
+  
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  
+}
+
+/* .filter-button:hover {
+  border-color: #8D6E63;
+  color: #4E342E;  
+} */
+
+/* Khi được chọn */
+.filter-button.active {
+  border-color: #8D6E63;
+  background-color: #FAF5F0; /* Nền be nhạt */
+  color: #4E342E;
+}
+
+/* Màu chữ khi nút được chọn */
+.mat-button-toggle-checked {
+  color: #a25f4b !important; /* Màu nâu đậm */
+}
+
+.price{
+  color: #a25f4b;
+}
+
+.stock {
+  color: #4CAF50;
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.mat-paginator {
+  background: transparent;
+  border-radius: 20px;
+}
+
+
+/* Style cho sản phẩm hết hàng */
+.out-of-stock-card {
+  position: relative;
+  cursor: not-allowed;
+}
+
+.out-of-stock-card:hover {
+  transform: none !important;
+}
+
+.out-of-stock-img {
+  opacity: 0.7;
+  filter: grayscale(30%);
+}
+
+.out-of-stock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.product-info .out-of-stock {
+  color: #f44336;
+  font-weight: 500;
+}

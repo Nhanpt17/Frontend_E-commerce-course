@@ -1,0 +1,27 @@
+
+<h1 mat-dialog-title>Đổi Voucher</h1>
+<div mat-dialog-content>
+  <p><strong>Code:</strong> {{voucher.code}}</p>
+  <p><strong>Giảm giá:</strong> {{voucher.discountType === 'FIXED_AMOUNT' ?(voucher.discountValue | currency:'VND':'symbol':'1.0-0') :voucher.discountValue + '%'  }}</p>
+  <p *ngIf="voucher.minimumOrderValue > 0"><strong>Đơn hàng tối thiểu:</strong> {{voucher.minimumOrderValue | currency:'VND':'symbol':'1.0-0'}}</p>
+  <p><strong>Có hiệu lực đến:</strong> {{voucher.endDate | date}}</p>
+  <p>{{voucher.description}}</p>
+
+  <div *ngIf="customerPoints" class="points-section">
+    <h3>Your Points: {{customerPoints.balance}}</h3>
+    <p *ngIf="customerPoints.balance >= voucher.pointsRequired">
+      Bạn có thể đổi Voucher này với {{voucher.pointsRequired}} điểm.
+    </p>
+    <p *ngIf="customerPoints.balance < voucher.pointsRequired" class="not-enough-points">
+      Bạn cần thêm {{voucher.pointsRequired - customerPoints.balance}} điểm để đổi Voucher này.
+    </p>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Hủy</button>
+  <button *ngIf="customerPoints.balance >= voucher.pointsRequired" 
+          mat-raised-button color="accent" 
+          (click)="redeemWithPoints()">
+          Đổi với {{voucher.pointsRequired}} điểm
+  </button>
+</div>

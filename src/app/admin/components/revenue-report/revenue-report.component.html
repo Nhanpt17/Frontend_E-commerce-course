@@ -1,0 +1,45 @@
+<div class="container">
+  
+    <h1 class="page-title">Báo cáo doanh thu</h1>
+
+  <div class="date-range">
+    <mat-form-field appearance="fill">
+      <mat-label>Từ ngày</mat-label>
+      <input matInput [matDatepicker]="startPicker" [value]="startDate" (dateChange)="onDateChange('start', $event)">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Đến ngày</mat-label>
+      <input matInput [matDatepicker]="endPicker" [value]="endDate" (dateChange)="onDateChange('end', $event)">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <mat-card *ngIf="!isLoading">
+    <mat-card-header>
+      <mat-card-title>Tổng doanh thu</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <h2>{{ totalRevenue | currency:'VND':'symbol':'1.0-0' }}</h2>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="chart-container" *ngIf="!isLoading">
+    <div class="chart">
+      <canvas #dailyChart></canvas>
+    </div>
+
+    <div class="chart">
+      <canvas #monthlyChart></canvas>
+    </div>
+
+    <div class="chart">
+      <canvas #paymentMethodChart></canvas>
+    </div>
+  </div>
+
+  <mat-spinner *ngIf="isLoading" class="spinner"></mat-spinner>
+</div>

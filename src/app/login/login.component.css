@@ -1,0 +1,196 @@
+.login-container {
+    
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    /*background: linear-gradient(to bottom, #4e342e, #3e2723);*/
+    background-color: #f6f6f6;
+    padding-top: 100px; /* Tạo khoảng cách với top */
+  }
+  
+  .login-card {
+    font-family: Arial, sans-serif;
+    padding: 30px;
+    width: 400px;
+    /* background: #fff3e0; */
+    background: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+  }
+  
+  .title {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #1d1f2e;
+    margin-bottom: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .login-btn {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    background-color:  #1d1f2e;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .login-btn:hover {
+    background-color: #5d4037;
+  }
+
+  .siguptitle{
+    display: block; /* Để button không bị inline */
+  text-align: center;
+  width: 100%;
+
+  }
+
+
+  .social-login {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+   .facebook-btn {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: none;
+  }
+
+
+.social-icon-svg {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.google-btn {
+  width: 100%;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  border: 0.1px solid #ddd; /* Viền cực mỏng */
+  background-color: white; /* Nền trắng */
+  color: #5f4339; /* Màu nâu nhẹ */
+  font-weight: bold;
+  padding: 8px ;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: none;
+  display: flex;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  gap: 7px; /* Khoảng cách giữa logo và chữ */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+
+
+.google-btn:hover {
+    background-color: #f0f0f0; /* Màu xám nhạt để tạo hiệu ứng hover nhẹ nhàng */
+    border-color: #bbb; /* Viền rõ hơn một chút khi hover */
+}
+  
+  .facebook-btn {
+    background-color: #1877f2;
+    color: white;
+  }
+  
+  .facebook-btn:hover {
+    background-color: #155bc1;
+  }
+  
+  .social-icon {
+    margin-right: 8px;
+    
+  }
+  
+  .auth-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .signup-btn, .forgot-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #1d1f2e;
+  }
+  
+  .signup-btn strong {
+    font-family: Arial, sans-serif;
+    color: #db4437;
+  }
+  
+  .forgot-btn {
+    color: #e53935;
+  }
+
+  .social-icon-svg {
+    width: 20px;
+    height: 20px;
+   
+    
+  } 
+  mat-divider {
+    width: 85%;
+    margin: 0px auto 5px auto; /* Căn giữa theo chiều ngang */
+    border-top: 1px solid #ccc;
+    display: block; /* Đảm bảo nó hoạt động như một khối */
+  }
+
+  /* Thêm spinner loading */
+
+
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #1d1f2e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

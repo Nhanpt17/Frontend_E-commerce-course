@@ -1,0 +1,141 @@
+.order-detail-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .status-chip {
+    margin-left: auto;
+  }
+  
+  .order-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  
+  .section {
+    background: white;
+    padding: 16px;
+    border-radius: 4px;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .label {
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .value {
+    text-align: right;
+  }
+  
+  .product-info .name {
+    font-weight: 500;
+  }
+  
+  .product-info .price {
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    gap: 16px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+  }
+  
+  .summary-item.total {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  
+  .payment-reminder {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background-color: #fff8e1;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    color: #ff6f00;
+  }
+  
+  .payment-reminder mat-icon {
+    color: #ff6f00;
+  }
+  
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  /* Base style cho chip */
+mat-chip {
+  font-weight: 500;
+  font-size: 13px;
+  color: white;
+}
+
+/* Trạng thái PENDING - Chờ quán xác nhận */
+mat-chip.pending {
+  background-color: #ff9800; /* cam */
+}
+
+/* Trạng thái PLACED - Đã đặt hàng */
+mat-chip.placed {
+  background-color: #3f51b5; /* xanh dương đậm */
+}
+
+/* Trạng thái DELIVERING - Đang giao */
+mat-chip.delivering {
+  background-color: #2196f3; /* xanh trời */
+}
+
+/* Trạng thái COMPLETED - Giao thành công */
+mat-chip.completed {
+  background-color: #4caf50; /* xanh lá */
+}
+
+/* Trạng thái CANCELLED - Đơn bị hủy */
+mat-chip.cancelled {
+  background-color: #f44336; /* đỏ */
+}

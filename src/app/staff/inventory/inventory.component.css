@@ -1,0 +1,83 @@
+.inventory-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    color: #3f51b5;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .filter-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .search-field {
+    min-width: 300px;
+  }
+  
+  .inventory-stats {
+    margin-bottom: 20px;
+  }
+  
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .stat-label {
+    font-weight: 500;
+  }
+  
+  .stat-value {
+    font-weight: bold;
+    color: #3f51b5;
+  }
+  
+  .product-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .out-of-stock {
+    color: #f44336;
+    font-weight: bold;
+  }
+  
+  .low-stock {
+    color: #ff9800;
+    font-weight: bold;
+  }
+  
+  .stock-status {
+    font-size: 0.8em;
+    margin-left: 5px;
+    color: #666;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .filter-section {
+      flex-direction: column;
+    }
+    
+    .search-field {
+      width: 100%;
+      min-width: unset;
+    }
+  }
