@@ -1,9 +1,9 @@
 import { CartService } from './../services/cart/cart.service';
 import { Router } from '@angular/router';
-
 import { AppComponent } from './../app.component';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../services/product/product.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -11,30 +11,34 @@ import { ProductService } from '../services/product/product.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  
+
   products!: any[];
   featuredProducts!: any[];
   visible: boolean = this.appComponent.isAdminLoggedIn;
-  
+
   @ViewChild('productsSection') productsSection!: ElementRef;
 
+  // 💌 Các biến liên quan đến form đăng ký email
+  subscriberEmail: string = '';
+  subscribeMessage: string = '';
+
   constructor(
-     private appComponent: AppComponent,
-     private productService: ProductService,
-     private cartService:CartService,
-     private router:Router) { }
+    private appComponent: AppComponent,
+    private productService: ProductService,
+    private cartService: CartService,
+    private router: Router,
+    private http: HttpClient // 👈 thêm để gửi request đến backend
+  ) {}
 
   ngOnInit(): void {
-    //this.getAllProducts();
     this.getFeaturedProducts();
   }
 
   getAllProducts(): void {
     this.products = [];
     this.productService.getAllProducts().subscribe(res => {
-      if (Array.isArray(res)) {  // Kiểm tra res là mảng không
-      
-        this.products =res;
+      if (Array.isArray(res)) {
+        this.products = res;
       } else {
         console.error("API response is not an array:", res);
       }
@@ -46,34 +50,52 @@ export class HomeComponent implements OnInit {
   }
 
   getFeaturedProducts(): void {
-    
-    // For now, just take the first 4 products
     this.productService.getFourNewProdct().subscribe(res => {
       if (Array.isArray(res)) {
-    
         this.featuredProducts = res;
       }
     });
   }
 
   buyNow(product: any) {
-    if (product.stock <= 0) {
-      return; 
-    }
+    if (product.stock <= 0) return;
     this.cartService.addToCart(product);
     this.router.navigate(["/cart"]);
   }
 
   addToCart(product: any) {
-    if (product.stock <= 0) {
-      return; 
-    }
-    
+    if (product.stock <= 0) return;
     this.cartService.addToCart(product);
   }
 
-  viewProductDetails(productId:number, categoryId:number){
-    this.productService.viewProductDetails(productId,categoryId);
+  viewProductDetails(productId: number, categoryId: number) {
+    this.productService.viewProductDetails(productId, categoryId);
   }
 
+  // 💌 Gửi email từ form đến backend để lưu vào Mailchimp
+  subscribeToNewsletter(): void {
+    if (!this.subscriberEmail || !this.validateEmail(this.subscriberEmail)) {
+      this.subscribeMessage = '❌ Vui lòng nhập email hợp lệ!';
+      return;
+    }
+
+    this.http.post('http://localhost:8080/api/mailchimp/subscribe', null, {
+      params: { email: this.subscriberEmail }
+    }).subscribe({
+      next: () => {
+        this.subscribeMessage = '✅ Đăng ký thành công! Cảm ơn bạn.';
+        this.subscriberEmail = '';
+      },
+      error: (err) => {
+        console.error(err);
+        this.subscribeMessage = '⚠️ Có lỗi xảy ra. Vui lòng thử lại.';
+      }
+    });
+  }
+
+  // 🔎 Hàm kiểm tra định dạng email
+  validateEmail(email: string): boolean {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email.toLowerCase());
+  }
 }

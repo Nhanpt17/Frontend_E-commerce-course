@@ -537,3 +537,43 @@ color: #666; /* Màu xám nhẹ*/
 .stock{
   text-align: center;
 }
+
+.newsletter-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.newsletter-form input[type="email"] {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.newsletter-form .btn-primary {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #5c4033;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newsletter-form .btn-primary:hover {
+  background-color: #7a4f39;
+}
+
+.subscribe-message {
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+.subscribe-message.success {
+  color: #28a745; /* xanh lá */
+}
+
+.subscribe-message.error {
+  color: #dc3545; /* đỏ */
+}

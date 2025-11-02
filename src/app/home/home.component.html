@@ -172,19 +172,39 @@
   </section>
 
   <!-- Khuyến mãi/Email Subscription -->
-  <section class="promotion-section">
-    <div class="promotion-banner">
-      <h2>Giảm 50% giá trị đơn hàng </h2>
-      <p>Sử dụng mã: WELCOME50</p>
-      <button class="btn-primary" routerLink="/products">Mua ngay</button>
-    </div>
-    <div class="newsletter">
-      <h3>Đăng ký nhận ưu đãi</h3>
-      <p>Nhận thông tin khuyến mãi và mẹo pha chế cà phê ngon</p>
-      <form class="newsletter-form">
-        <input type="email" placeholder="Nhập email của bạn">
-        <button type="submit" class="btn-primary">Đăng ký</button>
-      </form>
-    </div>
-  </section>
+<section class="promotion-section">
+  <div class="promotion-banner">
+    <h2>Giảm 50% giá trị đơn hàng</h2>
+    <p>Sử dụng mã: <strong>WELCOME50</strong></p>
+    <button class="btn-primary" routerLink="/products">Mua ngay</button>
+  </div>
+
+  <div class="newsletter">
+    <h3>Đăng ký nhận ưu đãi</h3>
+    <p>Nhận thông tin khuyến mãi và mẹo pha chế cà phê ngon</p>
+
+    <!-- 🔔 Form liên kết với Angular -->
+    <form class="newsletter-form" (ngSubmit)="subscribeToNewsletter()">
+      <input 
+        type="email" 
+        placeholder="Nhập email của bạn"
+        [(ngModel)]="subscriberEmail"
+        name="email"
+        required>
+
+      <button type="submit" class="btn-primary">Đăng ký</button>
+    </form>
+
+    <!-- 📩 Hiển thị thông báo phản hồi -->
+    <p *ngIf="subscribeMessage" 
+       class="subscribe-message"
+       [ngClass]="{
+         'success': subscribeMessage.includes('✅'),
+         'error': subscribeMessage.includes('❌') || subscribeMessage.includes('⚠️')
+       }">
+      {{ subscribeMessage }}
+    </p>
+  </div>
+</section>
+
 </div>
