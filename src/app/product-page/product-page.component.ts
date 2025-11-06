@@ -82,9 +82,26 @@ export class ProductPageComponent implements OnInit {
     
   }
 
-  viewProductDetails(productId:number, categoryId:number){
-    this.productService.viewProductDetails(productId,categoryId);
-  }
+  // viewProductDetails(productId:number, categoryId:number){
+  //   this.productService.viewProductDetails(productId,categoryId);
+  // }
+  //Thay thế:
+  viewProductDetails(product: any) {
+  const slug = this.slugify(product.name) + '-' + product.id;
+  this.router.navigate(['/product', slug]);
+}
+
+// Hàm chuyển tên sản phẩm thành slug thân thiện
+slugify(text: string): string {
+  return text
+    .toString()
+    .toLowerCase()
+    .normalize('NFD') // loại bỏ dấu tiếng Việt
+    .replace(/[\u0300-\u036f]/g, '') // xóa dấu
+    .replace(/[^a-z0-9]+/g, '-') // thay ký tự đặc biệt bằng '-'
+    .replace(/^-+|-+$/g, ''); // xóa '-' đầu/cuối
+}
+
 
   updatePagination() {
     const start = this.currentPage * this.pageSize;

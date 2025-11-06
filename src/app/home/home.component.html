@@ -16,7 +16,7 @@
     <h2 class="section-title">Sản phẩm nổi bật</h2>
     <div class="product-grid">
       <div class="product-card" *ngFor="let product of featuredProducts" [class.out-of-stock-card]="product.stock <= 0"
-        (click)="product.stock > 0 ? viewProductDetails(product.id, product.categoryId) : null">
+        (click)="product.stock > 0 ? viewProductDetails(product) : null">
         <div class="product-image-container">
           <img [src]="product.imgUrl" [alt]="product.name" class="product-image"
             [class.out-of-stock-img]="product.stock <= 0" />
