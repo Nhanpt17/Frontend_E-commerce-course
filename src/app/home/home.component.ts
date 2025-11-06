@@ -74,14 +74,19 @@ export class HomeComponent implements OnInit {
   //Thay thế:
   viewProductDetails(product: any) {
   const slug = this.slugify(product.name) + '-' + product.id;
-  this.router.navigate(['/product', slug]);
+
+  this.router.navigate(['/product', slug]).then(() => {
+    // Cuộn lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
-// Hàm chuyển tên sản phẩm thành slug thân thiện
-slugify(text: string): string {
-  return text
-    .toString()
-    .toLowerCase()
-    .normalize('NFD') // loại bỏ dấu tiếng Việt
+
+  // Hàm chuyển tên sản phẩm thành slug thân thiện
+  slugify(text: string): string {
+    return text
+      .toString()
+      .toLowerCase()
+      .normalize('NFD') // loại bỏ dấu tiếng Việt
     .replace(/[\u0300-\u036f]/g, '') // xóa dấu
     .replace(/[^a-z0-9]+/g, '-') // thay ký tự đặc biệt bằng '-'
     .replace(/^-+|-+$/g, ''); // xóa '-' đầu/cuối

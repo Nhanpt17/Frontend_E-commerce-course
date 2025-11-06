@@ -251,10 +251,21 @@ export class ProductDetailPageComponent implements OnInit {
 
   // }
    //Thay thế:
-  viewProductDetails(product: any) {
+viewProductDetails(product: any) {
   const slug = this.slugify(product.name) + '-' + product.id;
-  this.router.navigate(['/product', slug]);
+  
+  this.router.navigate(['/product', slug]).then(() => {
+    // Cuộn lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Load lại dữ liệu sản phẩm mới
+    this.getProductById(product.id);
+    this.getRelatedProducts(product.categoryId, 3);
+    this.loadReviews();
+    this.loadReviewStats();
+  });
 }
+
 // Hàm chuyển tên sản phẩm thành slug thân thiện
 slugify(text: string): string {
   return text
