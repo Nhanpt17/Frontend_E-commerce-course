@@ -69,39 +69,67 @@ export class ProductDetailPageComponent implements OnInit {
 
 
   // }
-  // ✅ Lấy productId từ slug URL (VD: /product/ca-phe-trung-nguyen-123)
+  
   ngOnInit(): void {
   this.isAuthenticated = UserstorageService.isCustomerLoggedIn();
 
   this.route.paramMap.subscribe(params => {
-    const slug = params.get('slug'); // ví dụ: ca-phe-trung-nguyen-123
+    const slug = params.get('slug'); // VD: ca-phe-trung-nguyen-123 hoặc ca-phe-trung-nguyen
+
     if (slug) {
       const parts = slug.split('-');
-      this.productId = Number(parts[parts.length - 1]); // lấy id ở cuối slug
-    }
+      const maybeId = Number(parts[parts.length - 1]);
 
-    // Bước 1: Gọi API lấy thông tin sản phẩm
-    this.productService.getProductById(this.productId).subscribe({
-      next: (res) => {
-        this.product = res;
-        this.categoryId = res.categoryId; // gán lại categoryId từ sản phẩm
+      if (!isNaN(maybeId)) {
+        // ✅ Có ID trong URL → load bình thường
+        this.loadProductById(maybeId);
 
-        // Bước 2: Khi có categoryId rồi thì gọi sản phẩm liên quan
-        this.getRelatedProducts(this.categoryId, 3);
+        // ✅ Xóa ID khỏi thanh địa chỉ
+        const newSlug = this.slugify(parts.slice(0, -1).join('-'));
+        history.replaceState({}, '', `/product/${newSlug}`);
+      } else {
+        // ❌ Không có ID trong URL (người dùng copy link)
+        // → thử tìm sản phẩm theo slug từ cache (localStorage)
+        const cached = localStorage.getItem('lastViewedProduct');
+        if (cached) {
+          const product = JSON.parse(cached);
+          if (this.slugify(product.name) === slug) {
+            this.product = product;
+            this.loadProductById(product.id);
+            this.getRelatedProducts(product.categoryId, 3);
+            return;
+          }
+        }
 
-        // Bước 3: Gọi đánh giá
-        this.loadReviews();
-        this.loadReviewStats();
-
-        // Cập nhật giá
-        this.updateTotalPrice();
-      },
-      error: (err) => {
-        console.error("Lỗi khi lấy chi tiết sản phẩm:", err);
+        // Nếu cache không có, fallback → gọi API getAll và tìm thủ công
+        this.productService.getAllProducts().subscribe(all => {
+          const product = all.find((p: any) => this.slugify(p.name) === slug);
+          if (product) {
+            this.loadProductById(product.id);
+          } else {
+            console.error('Không tìm thấy sản phẩm theo slug:', slug);
+          }
+        });
       }
-    });
+    }
   });
 }
+
+loadProductById(id: number) {
+  this.productService.getProductById(id).subscribe(res => {
+    this.product = res;
+    this.categoryId = res.categoryId;
+    this.getRelatedProducts(this.categoryId, 3);
+    this.loadReviews();
+    this.loadReviewStats();
+    this.quantity = 1;
+    this.updateTotalPrice();
+
+    // 🔒 Lưu vào cache để xử lý khi copy link
+    localStorage.setItem('lastViewedProduct', JSON.stringify(res));
+  });
+}
+
 
 
 
@@ -270,12 +298,17 @@ viewProductDetails(product: any) {
 slugify(text: string): string {
   return text
     .toString()
-    .toLowerCase()
-    .normalize('NFD') // loại bỏ dấu tiếng Việt
-    .replace(/[\u0300-\u036f]/g, '') // xóa dấu
-    .replace(/[^a-z0-9]+/g, '-') // thay ký tự đặc biệt bằng '-'
-    .replace(/^-+|-+$/g, ''); // xóa '-' đầu/cuối
+    .normalize('NFD')                     // tách dấu tiếng Việt
+    .replace(/[\u0300-\u036f]/g, '')      // xóa dấu
+    .replace(/đ/g, 'd')                    // chuyển đ thường
+    .replace(/Đ/g, 'd')                    // chuyển Đ hoa thành d
+    .replace(/[^a-zA-Z0-9]+/g, '-')       // thay ký tự đặc biệt bằng '-'
+    .replace(/^-+/, '')                    // xóa '-' ở đầu
+    .replace(/-+$/, '')                    // xóa '-' ở cuối
+    .replace(/--+/g, '-')                  // chuyển '--' liên tiếp thành '-'
+    .toLowerCase();                        // chuyển toàn bộ thành chữ thường
 }
+
 
   buyNow(product: any) {
     this.cartService.addToCart(product);

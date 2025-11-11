@@ -95,12 +95,17 @@ export class ProductPageComponent implements OnInit {
 slugify(text: string): string {
   return text
     .toString()
-    .toLowerCase()
-    .normalize('NFD') // loại bỏ dấu tiếng Việt
-    .replace(/[\u0300-\u036f]/g, '') // xóa dấu
-    .replace(/[^a-z0-9]+/g, '-') // thay ký tự đặc biệt bằng '-'
-    .replace(/^-+|-+$/g, ''); // xóa '-' đầu/cuối
+    .normalize('NFD')                     // tách dấu tiếng Việt
+    .replace(/[\u0300-\u036f]/g, '')      // xóa dấu
+    .replace(/đ/g, 'd')                    // chuyển đ thường
+    .replace(/Đ/g, 'd')                    // chuyển Đ hoa thành d
+    .replace(/[^a-zA-Z0-9]+/g, '-')       // thay ký tự đặc biệt bằng '-'
+    .replace(/^-+/, '')                    // xóa '-' ở đầu
+    .replace(/-+$/, '')                    // xóa '-' ở cuối
+    .replace(/--+/g, '-')                  // chuyển '--' liên tiếp thành '-'
+    .toLowerCase();                        // chuyển toàn bộ thành chữ thường
 }
+
 
 
   updatePagination() {
