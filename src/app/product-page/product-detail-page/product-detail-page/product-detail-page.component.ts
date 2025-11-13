@@ -118,6 +118,7 @@ export class ProductDetailPageComponent implements OnInit {
 loadProductById(id: number) {
   this.productService.getProductById(id).subscribe(res => {
     this.product = res;
+    this.productId = res.id; 
     this.categoryId = res.categoryId;
     this.getRelatedProducts(this.categoryId, 3);
     this.loadReviews();
