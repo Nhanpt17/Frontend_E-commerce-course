@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
             this.userAvatar = avatar + '?sz=200';
           }
           else
-            this.userAvatar = 'https://static-00.iconduck.com/assets.00/user-square-icon-256x256-w0pqfldx.png';
+            this.userAvatar = 'https://res.cloudinary.com/dx9yg1sze/image/upload/v1744909102/samples/balloons.jpg';
 
           
         }
