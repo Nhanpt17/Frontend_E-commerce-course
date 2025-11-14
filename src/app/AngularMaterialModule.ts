@@ -23,6 +23,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatRadioModule} from '@angular/material/radio';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   
@@ -50,7 +52,9 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatDialogModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatRadioModule,
+    MatListModule
     
   ]
 })

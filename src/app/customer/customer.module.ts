@@ -11,6 +11,9 @@ import { HandlePaymentMomoComponent } from './components/handle-payment-momo/han
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { OrderDetailDialogComponent } from './components/order-detail-dialog/order-detail-dialog.component';
 import { VoucherCenterComponent } from './components/voucher-center/voucher-center.component';
+import { PaypalCheckoutStepperComponent } from './components/paypal-checkout-stepper/paypal-checkout-stepper.component';
+import { VnpayPaymentComponent } from './components/vnpay-payment/vnpay-payment.component';
+import { HandlePaymentVnpayComponent } from './components/handle-payment-vnpay/handle-payment-vnpay.component';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { VoucherCenterComponent } from './components/voucher-center/voucher-cent
     HandlePaymentMomoComponent,
     OrderHistoryComponent,
     OrderDetailDialogComponent,
-    VoucherCenterComponent
+    VoucherCenterComponent,
+    PaypalCheckoutStepperComponent,
+    VnpayPaymentComponent,
+    HandlePaymentVnpayComponent
   ],
   imports: [
     AngularMaterialModule,
@@ -28,7 +34,9 @@ import { VoucherCenterComponent } from './components/voucher-center/voucher-cent
     FormsModule,
     HttpClientModule,
     CommonModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+    
   ]
+  
 })
 export class CustomerModule { }

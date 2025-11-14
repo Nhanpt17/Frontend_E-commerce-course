@@ -25,7 +25,8 @@
       <ng-template matStepLabel>Địa chỉ giao hàng</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Địa chỉ</mat-label>
-        <input matInput placeholder="VD: 123 Đường ABC, Quận 1" formControlName="address" required>
+        <input matInput placeholder="VD: 123 Đường ABC, Quận 1" formControlName="address" required 
+        >
         <mat-error *ngIf="secondFormGroup.get('address')?.invalid && secondFormGroup.get('address')?.touched">
           Vui lòng nhập địa chỉ
         </mat-error>
@@ -36,6 +37,8 @@
       </div>
     </form>
   </mat-step>
+
+  
 
   <!-- Bước 3: Thanh toán -->
   <mat-step [stepControl]="thirdFormGroup">
