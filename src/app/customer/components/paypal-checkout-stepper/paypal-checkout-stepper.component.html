@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>Thông tin giao hàng</h2>
+
+<mat-dialog-content [formGroup]="infoForm">
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Số điện thoại</mat-label>
+    <input matInput placeholder="VD: 0901234567" formControlName="phone" required>
+    <mat-error *ngIf="infoForm.get('phone')?.invalid && infoForm.get('phone')?.touched">
+      Vui lòng nhập số điện thoại hợp lệ
+    </mat-error>
+  </mat-form-field>
+
+  <!-- <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Địa chỉ giao hàng</mat-label>
+    <textarea matInput placeholder="VD: 123 Đường ABC, Quận 1"
+              formControlName="address" required></textarea>
+    <mat-error *ngIf="infoForm.get('address')?.invalid && infoForm.get('address')?.touched">
+      Vui lòng nhập địa chỉ
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content> -->
+
+<!-- ========== Ô NHẬP ĐỊA CHỈ VỚI GOONG AUTOCOMPLETE ========== -->
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Địa chỉ giao hàng</mat-label>
+    
+    <!-- ĐỔI từ textarea → input và THÊM [matAutocomplete] -->
+    <input 
+      matInput 
+      placeholder="VD: 123 Đường ABC, Quận 1"
+      formControlName="address" 
+      [matAutocomplete]="auto"
+      required>
+    
+    <!-- Loading spinner (hiện khi đang gọi API) -->
+    <mat-icon matSuffix *ngIf="isLoadingAddress">
+      <mat-spinner diameter="20"></mat-spinner>
+    </mat-icon>
+    
+    <mat-error *ngIf="infoForm.get('address')?.invalid && infoForm.get('address')?.touched">
+      Vui lòng nhập địa chỉ
+    </mat-error>
+  </mat-form-field>
+
+  <!-- ========== DROPDOWN AUTOCOMPLETE ========== -->
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectAddress($event.option.value)">
+    <!-- Lặp qua danh sách gợi ý -->
+    <mat-option *ngFor="let prediction of predictions" [value]="prediction">
+      <div class="address-option">
+        <!-- Icon địa điểm -->
+        <mat-icon class="location-icon">location_on</mat-icon>
+        
+        <!-- Text địa chỉ -->
+        <div class="address-text">
+          <div class="main-text">{{ prediction.structured_formatting?.main_text }}</div>
+          <div class="secondary-text">{{ prediction.structured_formatting?.secondary_text }}</div>
+        </div>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Hủy</button>
+  <button mat-flat-button color="primary" (click)="onConfirm()" [disabled]="infoForm.invalid">Xác nhận</button>
+</mat-dialog-actions>

@@ -364,3 +364,56 @@ th {
   margin-right: 5px;
   font-size: 18px;
 }
+
+
+.paypal-row{
+  margin-top: 5px;
+}
+
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  margin: 0px 0;
+  justify-content: center;
+}
+
+.or-divider span {
+  padding: 0 10px;
+  font-weight: 500;
+  color: #777;
+}
+
+.vnpay-btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.vnpay-button {
+  border-color: #005baa !important;
+  color: #005baa !important;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  width: 100%;
+  max-width: inherit;
+  border-radius: 20px;     
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 7px;
+  transition: 0.2s ease;
+}
+
+/* Hover */
+.vnpay-button:hover {
+  background-color: rgba(0, 91, 170, 0.1) !important;
+  border-color: #0073e6 !important;
+  color: #0073e6 !important;
+}
+
+/* Khi click */
+.vnpay-button:active {
+  background-color: rgba(0, 91, 170, 0.2) !important;
+}

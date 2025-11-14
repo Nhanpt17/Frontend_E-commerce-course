@@ -11,3 +11,59 @@
     right: 8px;
   }
   
+
+
+ /* ---------------------------*/
+ .full-width {
+  width: 100%;
+}
+
+.address-option {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 0;
+}
+
+.location-icon {
+  color: #4CAF50;
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.address-text {
+  flex: 1;
+}
+
+.main-text {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.secondary-text {
+  font-size: 13px;
+  color: #666;
+}
+
+.selected-address-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background-color: #e8f5e9;
+  border-radius: 4px;
+  margin-top: 8px;
+  color: #2e7d32;
+  font-size: 14px;
+}
+
+.selected-address-info mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Để spinner hiển thị đẹp hơn */
+mat-spinner {
+  display: inline-block;
+}

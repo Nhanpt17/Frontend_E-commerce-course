@@ -25,6 +25,7 @@ import { UnauthorizedPageComponent } from './shared/unauthorized-page/unauthoriz
 import { DeliveryAssignmentDialogComponent } from './shared/delivery-assignment-dialog/delivery-assignment-dialog.component';
 import { CategoryDialogComponent } from './shared/dialogs/category-dialog/category-dialog.component';
 import { ConfirmCusDialogComponent } from './shared/dialogs/confirm-cus-dialog/confirm-cus-dialog.component';
+import { CustomerModule } from "./customer/customer.module";
 
 
 @NgModule({
@@ -56,8 +57,9 @@ import { ConfirmCusDialogComponent } from './shared/dialogs/confirm-cus-dialog/c
     MatPaginatorModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
-  ],
+    BrowserAnimationsModule,
+    CustomerModule,
+],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor,multi:true}, // Thêm interceptor
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlVietnamese }

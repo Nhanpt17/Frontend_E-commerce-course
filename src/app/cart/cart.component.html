@@ -1,6 +1,8 @@
 <h2 class="cart-title">
-  <mat-icon>shopping_basket</mat-icon> <!-- Giữ nguyên nếu muốn -->
-  Giỏ cà phê của bạn <!-- Thay đổi text cho gần gũi -->
+  <mat-icon>shopping_basket</mat-icon>
+  <!-- Giữ nguyên nếu muốn -->
+  Giỏ cà phê của bạn
+  <!-- Thay đổi text cho gần gũi -->
 </h2>
 
 <div class="cart-wrapper">
@@ -9,19 +11,15 @@
     <table [dataSource]="cart" mat-table class="mat-elevation-z8 cart-table">
       <!-- Cột hình ảnh -->
       <ng-container matColumnDef="image">
-        <th *matHeaderCellDef mat-header-cell>
-          Sản phẩm
-        </th>
+        <th *matHeaderCellDef mat-header-cell>Sản phẩm</th>
         <td *matCellDef="let item" mat-cell>
-          <img [src]=" item.imgUrl" alt="Sản phẩm" class="product-img">
+          <img [src]="item.imgUrl" alt="Sản phẩm" class="product-img" />
         </td>
       </ng-container>
 
       <!-- Tên -->
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell>
-          Tên
-        </th>
+        <th *matHeaderCellDef mat-header-cell>Tên</th>
         <td *matCellDef="let item" mat-cell>
           {{ item.name }}
         </td>
@@ -29,9 +27,7 @@
 
       <!-- Số lượng -->
       <ng-container matColumnDef="quantity">
-        <th *matHeaderCellDef mat-header-cell>
-          Số lượng
-        </th>
+        <th *matHeaderCellDef mat-header-cell>Số lượng</th>
         <td *matCellDef="let item" mat-cell>
           <div class="quantity-control">
             <button (click)="decreaseQuantity(item.id)">−</button>
@@ -43,9 +39,7 @@
 
       <!-- Giá -->
       <ng-container matColumnDef="price">
-        <th *matHeaderCellDef mat-header-cell>
-          Đơn giá
-        </th>
+        <th *matHeaderCellDef mat-header-cell>Đơn giá</th>
         <td *matCellDef="let item" mat-cell>
           {{ item.price | currency : "VND" }}
         </td>
@@ -53,9 +47,7 @@
 
       <!-- Tổng -->
       <ng-container matColumnDef="total">
-        <th *matHeaderCellDef mat-header-cell>
-          Thành tiền
-        </th>
+        <th *matHeaderCellDef mat-header-cell>Thành tiền</th>
         <td *matCellDef="let item" mat-cell>
           {{ item.price * item.quantity | currency : "VND" }}
         </td>
@@ -63,9 +55,7 @@
 
       <!-- Xóa -->
       <ng-container matColumnDef="remove">
-        <th *matHeaderCellDef mat-header-cell>
-          Xóa
-        </th>
+        <th *matHeaderCellDef mat-header-cell>Xóa</th>
         <td *matCellDef="let item" mat-cell>
           <button (click)="removeItem(item.id)" mat-icon-button color="warn">
             <mat-icon>delete</mat-icon>
@@ -75,17 +65,17 @@
 
       <tbody>
         <tr *matHeaderRowDef="[
-          'image',
-          'name',
-          'quantity',
-          'price',
-          'total',
-          'remove'
-        ]" mat-header-row></tr>
+            'image',
+            'name',
+            'quantity',
+            'price',
+            'total',
+            'remove'
+          ]" mat-header-row></tr>
         <tr *matRowDef="
-          let row;
-          columns: ['image', 'name', 'quantity', 'price', 'total', 'remove']
-        " mat-row></tr>
+            let row;
+            columns: ['image', 'name', 'quantity', 'price', 'total', 'remove']
+          " mat-row></tr>
       </tbody>
     </table>
   </div>
@@ -93,10 +83,8 @@
   <!-- Tổng kết thanh toán -->
   <div class="summary-panel">
     <div class="cart-summary-left">
-      <button (click)="clearCart()" mat-button color="warn" style="border-radius: 20px;">
-        <mat-icon>
-          remove_shopping_cart
-        </mat-icon>
+      <button (click)="clearCart()" mat-button color="warn" style="border-radius: 20px">
+        <mat-icon> remove_shopping_cart </mat-icon>
         Xóa tất cả
       </button>
     </div>
@@ -106,7 +94,8 @@
       <div *ngIf="totalPrice < 300000" class="free-ship-notice">
         <mat-icon>local_shipping</mat-icon>
         <span>
-          Mua thêm <strong>{{ 300000 - totalPrice | number:'1.0-0' }}đ</strong> để được
+          Mua thêm
+          <strong>{{ 300000 - totalPrice | number : "1.0-0" }}đ</strong> để được
           <strong class="free-ship-text">MIỄN PHÍ VẬN CHUYỂN</strong>!
         </span>
       </div>
@@ -115,39 +104,54 @@
       <div class="payment-summary">
         <div class="summary-row">
           <span>Tạm tính:</span>
-          <span>{{ totalPrice | currency:'VND' }}</span>
+          <span>{{ totalPrice | currency : "VND" }}</span>
         </div>
 
         <div class="summary-row">
           <span>Phí vận chuyển:</span>
-          <span>{{ shippingFee | currency:'VND' }}</span>
+          <span>{{ shippingFee | currency : "VND" }}</span>
         </div>
 
         <div class="summary-row discount-row" *ngIf="discountAmount > 0">
           <span>Giảm giá:</span>
-          <span class="discount-amount">-{{ discountAmount | currency:'VND' }}</span>
+          <span class="discount-amount">-{{ discountAmount | currency : "VND" }}</span>
         </div>
 
         <div class="summary-row total-row">
           <span>Thành tiền:</span>
-          <span class="total-amount">{{ finalAmount | currency:'VND' }}</span>
+          <span class="total-amount">{{ finalAmount | currency : "VND" }}</span>
         </div>
       </div>
+
+      <!--PAYPAL BUTTON-->
+      <div class="paypal-row">
+        <div id="paypal-button-container" class="paypal-button-container"></div>
+      </div>
+
+      
+
+<div class="vnpay-btn-wrapper">
+  <button mat-stroked-button class="vnpay-button" (click)="vnpayCheckout()">
+    <mat-icon>account_balance_wallet</mat-icon>
+    <span>VNPAY</span>
+  </button>
+</div>
+      
     </div>
 
     <div class="cart-summary-right">
       <div class="discount-container">
         <button (click)="showDiscountInput = !showDiscountInput" mat-stroked-button color="primary"
           class="discount-toggle-btn">
-          <mat-icon>{{ showDiscountInput ? 'close' : 'local_offer' }}</mat-icon>
+          <mat-icon>{{ showDiscountInput ? "close" : "local_offer" }}</mat-icon>
           {{ showDiscountInput ? "Đóng mã giảm giá" : "Áp dụng mã giảm giá" }}
         </button>
-        
-        
+
         <div *ngIf="showDiscountInput" class="discount-input-group">
           <mat-form-field appearance="outline" class="discount-form-field">
             <mat-label>Nhập mã giảm giá</mat-label>
-            <input matInput [(ngModel)]="discountCode" (input)="checkInput()" placeholder="Ví dụ: FREESHIP"  (keydown.enter)="applyDiscount()">
+            <input matInput [(ngModel)]="discountCode" (input)="checkInput()" placeholder="Ví dụ: FREESHIP"
+              (keydown.enter)="applyDiscount()" />
             <mat-hint *ngIf="!discountCode">Nhập mã và nhấn Enter</mat-hint>
           </mat-form-field>
 
@@ -158,35 +162,40 @@
         </div>
 
         <!-- Phần voucher public (chọn từ danh sách) -->
-    <div *ngIf="availableVouchers.length > 0" class="public-vouchers-container">
-      <mat-form-field appearance="outline" class="voucher-select-field">
-        <mat-label>Chọn voucher của bạn</mat-label>
-        <mat-select [(value)]="selectedVoucherId" (selectionChange)="applyPublicVoucher()">
-          <mat-option [value]="null">-- Không chọn --</mat-option>
-          <mat-option *ngFor="let voucher of availableVouchers" [value]="voucher.id">
-            {{ voucher.code }} - Giảm {{ voucher.discountValue }} {{ voucher.discountType === 'FIXED_AMOUNT' ? 'đ' : '%' }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-       <!-- Hiển thị thông báo lỗi -->
-    <p *ngIf="voucherError" class="invalid-discount">
-      <mat-icon>error_outline</mat-icon>
-      {{ voucherError }}
-    </p>
+        <div *ngIf="availableVouchers.length > 0" class="public-vouchers-container">
+          <mat-form-field appearance="outline" class="voucher-select-field">
+            <mat-label>Chọn voucher của bạn</mat-label>
+            <mat-select [(value)]="selectedVoucherId" (selectionChange)="applyPublicVoucher()">
+              <mat-option [value]="null">-- Không chọn --</mat-option>
+              <mat-option *ngFor="let voucher of availableVouchers" [value]="voucher.id">
+                {{ voucher.code }} - Giảm {{ voucher.discountValue }}
+                {{ voucher.discountType === "FIXED_AMOUNT" ? "đ" : "%" }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- Hiển thị thông báo lỗi -->
+        <p *ngIf="voucherError" class="invalid-discount">
+          <mat-icon>error_outline</mat-icon>
+          {{ voucherError }}
+        </p>
 
-    <!-- Nút hủy áp dụng voucher -->
-    <button *ngIf="discountAmount > 0" mat-stroked-button color="warn" (click)="removeVoucher()" class="remove-voucher-btn">
-      <mat-icon>close</mat-icon>
-      Hủy áp dụng voucher
-    </button>
-  </div>
+        <!-- Nút hủy áp dụng voucher -->
+        <button *ngIf="discountAmount > 0" mat-stroked-button color="warn" (click)="removeVoucher()"
+          class="remove-voucher-btn">
+          <mat-icon>close</mat-icon>
+          Hủy áp dụng voucher
+        </button>
+      </div>
 
       <!-- Nút cho cà phê truyền thống -->
       <button mat-stroked-button class="minimal-coffee-btn" (click)="checkout()">
         <mat-icon>local_cafe</mat-icon>
         <span>Mua cà phê ngay</span>
       </button>
+
+      <!-- Viet code moi o day-->
+      
     </div>
   </div>
 </div>

@@ -1,0 +1,372 @@
+/* 
+
+
+.vnpay-title-text {
+
+  color: #FF4081; 
+}
+
+.vnpay-dialog-container {
+
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-title-custom {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  padding: 16px 24px;
+  margin: 0; 
+  font-size: xx-large;
+}
+
+.close-button {
+
+  margin-right: -8px; 
+}
+
+.dialog-content-custom {
+  padding: 10px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; 
+}
+
+
+.section-title {
+  font-weight: 700;
+  color: #3f51b5;
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+
+.radio-group.payment-method-group {
+  display: flex;
+
+  align-self: center;
+  flex-direction: column; 
+  gap: 12px;
+}
+
+.radio-item {
+  display: flex;
+  margin-left: 0;
+}
+
+.radio-icon {
+  margin-right: 8px;
+}
+
+
+.payment-method-group .mat-radio-button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.payment-method-group .mat-radio-button:hover:not(.mat-radio-checked) {
+  background-color: #f5f5f5; 
+}
+
+.language-group {
+  display: flex;
+  gap: 24px;
+  padding-left: 0;
+}
+
+.flag-icon {
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+
+.section-divider {
+  margin: 1rem 0;
+}
+
+
+.dialog-actions-custom {
+  padding: 8px 24px 16px;
+  
+}
+
+.cancel-btn {
+  
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.pay-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 180px;
+  height: 44px; 
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.icon-method{
+  display: flex;
+  align-items: center;
+}
+ */
+
+
+
+ .vnpay-dialog-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+  border-radius: 12px;
+  overflow: hidden;
+  min-width: 420px;
+}
+
+.dialog-title-custom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #3f51b5;
+  padding: 16px 24px;
+  background-color: #f3f4f9;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dialog-content-custom {
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+/* --- Từng section (1,2,3) --- */
+.section-title {
+  font-weight: 600;
+  color: #3f51b5;
+  font-size: 1.1rem;
+  border-left: 4px solid #3f51b5;
+  padding-left: 8px;
+  margin-bottom: 0.75rem;
+}
+
+/* --- Form container nhỏ gọn, có nền nhẹ --- */
+.vnpay-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.vnpay-form mat-form-field {
+  width: 100%;
+}
+
+mat-form-field {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+mat-form-field.mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* --- Phần chọn phương thức thanh toán --- */
+.radio-group.payment-method-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payment-method-group .mat-radio-button {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  background-color: #fff;
+}
+
+.payment-method-group .mat-radio-button:hover:not(.mat-radio-checked) {
+  background-color: #f5f7ff;
+  border-color: #c5cae9;
+}
+
+.payment-method-group .mat-radio-checked {
+  border-color: #3f51b5;
+  background-color: #e8eaf6;
+}
+
+.icon-method {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- Ngôn ngữ --- */
+.language-group {
+  display: flex;
+  gap: 24px;
+  padding-left: 4px;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+}
+
+.flag-icon {
+  font-size: 1.2rem;
+  margin-right: 6px;
+}
+
+/* --- Action buttons --- */
+.dialog-actions-custom {
+  padding: 12px 24px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background-color: #f3f4f9;
+  border-top: 1px solid #e0e0e0;
+}
+
+.cancel-btn {
+  font-weight: 500;
+  color: #555;
+}
+
+.pay-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 180px;
+  height: 44px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.pay-btn mat-icon {
+  font-size: 20px;
+}
+
+
+.dialog-actions-custom {
+  padding: 12px 24px 20px;
+  display: flex;
+  justify-content: space-between; /* 🔥 Trái phải tách nhau */
+  align-items: center;
+  background-color: #f3f4f9;
+  border-top: 1px solid #e0e0e0;
+}
+
+.left-actions,
+.right-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Nút hủy bỏ — màu accent, nổi bật nhẹ */
+.cancel-btn {
+  font-weight: 600;
+  color: #f44336; /* accent mặc định */
+  transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: rgba(255, 64, 129, 0.1);
+}
+
+/* Nút thanh toán giữ nguyên như cũ */
+.pay-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 180px;
+  height: 44px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+/* ========== Style cho mỗi option trong dropdown autocomplete ========== */
+.address-option {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+/* ========== Icon địa điểm (màu xanh lá) ========== */
+.location-icon {
+  color: #4CAF50;
+  margin-right: 12px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* ========== Container cho text địa chỉ ========== */
+.address-text {
+  flex: 1;
+  line-height: 1.4;
+}
+
+/* ========== Text chính (tên đường, số nhà) - in đậm ========== */
+.main-text {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* ========== Text phụ (quận, thành phố) - màu nhạt hơn ========== */
+.secondary-text {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ========== Box thông báo đã chọn địa chỉ với tọa độ ========== */
+.selected-address-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #e8f5e9;     /* Màu xanh lá nhạt */
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  color: #2e7d32;                /* Màu xanh lá đậm */
+  font-size: 14px;
+  border: 1px solid #a5d6a7;     /* Viền xanh lá */
+  transition: all 0.3s ease;
+}
+
+/* ========== Icon check trong box thông báo ========== */
+.selected-address-info mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+/* ========== Animation cho box thông báo ========== */
+.selected-address-info {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== Spinner loading ========== */
+mat-spinner {
+  display: inline-block;
+}
