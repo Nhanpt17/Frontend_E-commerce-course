@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'products', component: ProductPageComponent },
-  { path: 'product-detail/:id/:categoryId', component: ProductDetailPageComponent },
+  { path: 'product/:slug', component: ProductDetailPageComponent },
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'unauthorized', component: UnauthorizedPageComponent },

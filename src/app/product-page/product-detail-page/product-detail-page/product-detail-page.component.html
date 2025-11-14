@@ -69,7 +69,7 @@
     <h2>Sản phẩm liên quan</h2>
     <div class="related-grid">
       <div class="related-item" *ngFor="let item of relatedProducts" [class.out-of-stock-card]="item.stock <= 0"
-        (click)="viewProductDetails(item.id, item.categoryId)">
+        (click)="viewProductDetails(item)">
         <div class="related-image-container">
           <img [src]="item.imgUrl" [alt]="item.name" class="related-image" [class.out-of-stock-img]="item.stock <= 0" />
           <div class="out-of-stock-overlay" *ngIf="item.stock <= 0">

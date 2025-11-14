@@ -49,26 +49,89 @@ export class ProductDetailPageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.isAuthenticated = UserstorageService.isCustomerLoggedIn();
+  // ngOnInit(): void {
+  //   this.isAuthenticated = UserstorageService.isCustomerLoggedIn();
     
-    this.route.paramMap.subscribe(params => {
-      this.productId = Number(params.get('id'));
-      this.categoryId = Number(params.get('categoryId'));
+  //   this.route.paramMap.subscribe(params => {
+  //     this.productId = Number(params.get('id'));
+  //     this.categoryId = Number(params.get('categoryId'));
 
-      // Tại đây, bạn có thể gọi API hoặc thực hiện các hành động khác sử dụng productId và categoryId
+  //     // Tại đây, bạn có thể gọi API hoặc thực hiện các hành động khác sử dụng productId và categoryId
      
 
-      this.getRelatedProducts(this.categoryId, 3);
-      this.getProductById(this.productId);
-      this.loadReviews();
-      this.loadReviewStats();
+  //     this.getRelatedProducts(this.categoryId, 3);
+  //     this.getProductById(this.productId);
+  //     this.loadReviews();
+  //     this.loadReviewStats();
       
-    });
+  //   });
 
 
 
-  }
+  // }
+  
+  ngOnInit(): void {
+  this.isAuthenticated = UserstorageService.isCustomerLoggedIn();
+
+  this.route.paramMap.subscribe(params => {
+    const slug = params.get('slug'); // VD: ca-phe-trung-nguyen-123 hoặc ca-phe-trung-nguyen
+
+    if (slug) {
+      const parts = slug.split('-');
+      const maybeId = Number(parts[parts.length - 1]);
+
+      if (!isNaN(maybeId)) {
+        // ✅ Có ID trong URL → load bình thường
+        this.loadProductById(maybeId);
+
+        // ✅ Xóa ID khỏi thanh địa chỉ
+        const newSlug = this.slugify(parts.slice(0, -1).join('-'));
+        history.replaceState({}, '', `/product/${newSlug}`);
+      } else {
+        // ❌ Không có ID trong URL (người dùng copy link)
+        // → thử tìm sản phẩm theo slug từ cache (localStorage)
+        const cached = localStorage.getItem('lastViewedProduct');
+        if (cached) {
+          const product = JSON.parse(cached);
+          if (this.slugify(product.name) === slug) {
+            this.product = product;
+            this.loadProductById(product.id);
+            this.getRelatedProducts(product.categoryId, 3);
+            return;
+          }
+        }
+
+        // Nếu cache không có, fallback → gọi API getAll và tìm thủ công
+        this.productService.getAllProducts().subscribe(all => {
+          const product = all.find((p: any) => this.slugify(p.name) === slug);
+          if (product) {
+            this.loadProductById(product.id);
+          } else {
+            console.error('Không tìm thấy sản phẩm theo slug:', slug);
+          }
+        });
+      }
+    }
+  });
+}
+
+loadProductById(id: number) {
+  this.productService.getProductById(id).subscribe(res => {
+    this.product = res;
+    this.productId = res.id; 
+    this.categoryId = res.categoryId;
+    this.getRelatedProducts(this.categoryId, 3);
+    this.loadReviews();
+    this.loadReviewStats();
+    this.quantity = 1;
+    this.updateTotalPrice();
+
+    // 🔒 Lưu vào cache để xử lý khi copy link
+    localStorage.setItem('lastViewedProduct', JSON.stringify(res));
+  });
+}
+
+
 
 
   loadReviews(): void {
@@ -212,10 +275,41 @@ export class ProductDetailPageComponent implements OnInit {
     });
 
   }
-  viewProductDetails(productId: number, categoryId: number) {
-    this.productService.viewProductDetails(productId, categoryId);
+  // viewProductDetails(productId: number, categoryId: number) {
+  //   this.productService.viewProductDetails(productId, categoryId);
 
-  }
+  // }
+   //Thay thế:
+viewProductDetails(product: any) {
+  const slug = this.slugify(product.name) + '-' + product.id;
+  
+  this.router.navigate(['/product', slug]).then(() => {
+    // Cuộn lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Load lại dữ liệu sản phẩm mới
+    this.getProductById(product.id);
+    this.getRelatedProducts(product.categoryId, 3);
+    this.loadReviews();
+    this.loadReviewStats();
+  });
+}
+
+// Hàm chuyển tên sản phẩm thành slug thân thiện
+slugify(text: string): string {
+  return text
+    .toString()
+    .normalize('NFD')                     // tách dấu tiếng Việt
+    .replace(/[\u0300-\u036f]/g, '')      // xóa dấu
+    .replace(/đ/g, 'd')                    // chuyển đ thường
+    .replace(/Đ/g, 'd')                    // chuyển Đ hoa thành d
+    .replace(/[^a-zA-Z0-9]+/g, '-')       // thay ký tự đặc biệt bằng '-'
+    .replace(/^-+/, '')                    // xóa '-' ở đầu
+    .replace(/-+$/, '')                    // xóa '-' ở cuối
+    .replace(/--+/g, '-')                  // chuyển '--' liên tiếp thành '-'
+    .toLowerCase();                        // chuyển toàn bộ thành chữ thường
+}
+
 
   buyNow(product: any) {
     this.cartService.addToCart(product);
