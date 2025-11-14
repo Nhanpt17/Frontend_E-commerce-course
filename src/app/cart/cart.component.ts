@@ -910,7 +910,7 @@ export class CartComponent {
    * Nó được gọi ngay trước khi VnpayPaymentComponent thực hiện chuyển hướng đến cổng VNPAY.
    * Đây là nơi bạn có thể hiển thị thông báo hoặc lưu trữ trạng thái giỏ hàng.
    */
-  test(): void {
+  vnpayCheckout(): void {
 
     if (this.cartService.getItemQuantity() < 1)
       return;

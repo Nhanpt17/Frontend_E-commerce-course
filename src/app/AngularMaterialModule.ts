@@ -25,6 +25,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatListModule } from '@angular/material/list';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   
@@ -54,7 +55,8 @@ import { MatListModule } from '@angular/material/list';
     MatSnackBarModule,
     MatButtonModule,
     MatRadioModule,
-    MatListModule
+    MatListModule,
+    MatAutocompleteModule
     
   ]
 })

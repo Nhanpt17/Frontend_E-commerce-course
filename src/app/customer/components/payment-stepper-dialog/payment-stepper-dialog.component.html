@@ -20,7 +20,7 @@
   </mat-step>
 
   <!-- Bước 2: Địa chỉ -->
-  <mat-step [stepControl]="secondFormGroup">
+  <!-- <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Địa chỉ giao hàng</ng-template>
       <mat-form-field appearance="fill">
@@ -31,6 +31,54 @@
           Vui lòng nhập địa chỉ
         </mat-error>
       </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Quay lại</button>
+        <button mat-button matStepperNext>Tiếp theo</button>
+      </div>
+    </form>
+  </mat-step> -->
+
+
+<!-- Bước 2: Địa chỉ với Goong Autocomplete -->
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Địa chỉ giao hàng</ng-template>
+      
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Địa chỉ</mat-label>
+        <input 
+          matInput 
+          placeholder="VD: 123 Đường ABC, Quận 1" 
+          formControlName="address" 
+          [matAutocomplete]="auto"
+          required>
+        <mat-icon matSuffix *ngIf="isLoadingAddress">
+          <mat-spinner diameter="20"></mat-spinner>
+        </mat-icon>
+        <mat-error *ngIf="secondFormGroup.get('address')?.invalid && secondFormGroup.get('address')?.touched">
+          Vui lòng nhập địa chỉ
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Material Autocomplete -->
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectAddress($event.option.value)">
+        <mat-option *ngFor="let prediction of predictions" [value]="prediction">
+          <div class="address-option">
+            <mat-icon class="location-icon">location_on</mat-icon>
+            <div class="address-text">
+              <div class="main-text">{{ prediction.structured_formatting?.main_text }}</div>
+              <div class="secondary-text">{{ prediction.structured_formatting?.secondary_text }}</div>
+            </div>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+
+      <!-- Hiển thị địa chỉ đã chọn (nếu có tọa độ) -->
+      <div *ngIf="selectedPlace" class="selected-address-info">
+        <mat-icon>check_circle</mat-icon>
+        <span>Đã chọn địa chỉ với tọa độ</span>
+      </div>
+
       <div>
         <button mat-button matStepperPrevious>Quay lại</button>
         <button mat-button matStepperNext>Tiếp theo</button>

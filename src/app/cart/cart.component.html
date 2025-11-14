@@ -126,8 +126,17 @@
       <!--PAYPAL BUTTON-->
       <div class="paypal-row">
         <div id="paypal-button-container" class="paypal-button-container"></div>
-        <p id="result-message">Cai gi vay troi</p>
       </div>
+
+      
+
+<div class="vnpay-btn-wrapper">
+  <button mat-stroked-button class="vnpay-button" (click)="vnpayCheckout()">
+    <mat-icon>account_balance_wallet</mat-icon>
+    <span>VNPAY</span>
+  </button>
+</div>
+      
     </div>
 
     <div class="cart-summary-right">
@@ -186,10 +195,7 @@
       </button>
 
       <!-- Viet code moi o day-->
-      <button mat-stroked-button class="minimal-coffee-btn" (click)="test()">
-        <mat-icon>local_cafe</mat-icon>
-        <span>TESST</span>
-      </button>
+      
     </div>
   </div>
 </div>

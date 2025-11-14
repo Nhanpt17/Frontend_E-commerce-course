@@ -1,0 +1,92 @@
+mat-form-field {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+mat-dialog-content {
+  min-width: 320px;
+}
+
+
+/* ========== Ô input full width ========== */
+.w-full {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* ========== Style cho mỗi option trong dropdown ========== */
+.address-option {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+/* ========== Icon địa điểm (màu xanh) ========== */
+.location-icon {
+  color: #4CAF50;
+  margin-right: 12px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* ========== Container cho text địa chỉ ========== */
+.address-text {
+  flex: 1;
+  line-height: 1.4;
+}
+
+/* ========== Text chính (tên đường, số nhà) - đậm ========== */
+.main-text {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* ========== Text phụ (quận, thành phố) - nhạt hơn ========== */
+.secondary-text {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ========== Box thông báo đã chọn địa chỉ ========== */
+.selected-address-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background-color: #e8f5e9;     /* Màu xanh nhạt */
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  color: #2e7d32;                /* Màu xanh đậm */
+  font-size: 14px;
+  border: 1px solid #a5d6a7;     /* Viền xanh */
+}
+
+/* ========== Icon check trong box thông báo ========== */
+.selected-address-info mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: #2e7d32;
+}
+
+/* ========== Spinner loading ========== */
+mat-spinner {
+  display: inline-block;
+}
+
+/* ========== Responsive cho dialog content ========== */
+mat-dialog-content {
+  min-width: 400px;
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  mat-dialog-content {
+    min-width: 300px;
+  }
+}

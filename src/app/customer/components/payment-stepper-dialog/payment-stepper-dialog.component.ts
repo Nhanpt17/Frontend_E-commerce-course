@@ -5,6 +5,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { GoongService } from '../../service/goong.service';
+import { debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
 
 
 
@@ -23,12 +25,18 @@ export class PaymentStepperDialogComponent implements OnInit {
   thirdFormGroup!: FormGroup;
 
 
+// Biến cho Goong autocomplete
+  predictions: any[] = [];
+  isLoadingAddress = false;
+  selectedPlace: any = null;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<PaymentStepperDialogComponent>,
     private _formBuilder: FormBuilder,
     private orderService: OrderService,
     private snackbar:MatSnackBar,
     private momoService:MomoService,
-    private router:Router
+    private router:Router,
+    private goongService: GoongService
   ) { }
 
   ngOnInit() {
@@ -41,6 +49,11 @@ export class PaymentStepperDialogComponent implements OnInit {
     this.thirdFormGroup = this._formBuilder.group({
       payment: ['', Validators.required],
     });
+
+
+     // Lắng nghe thay đổi của địa chỉ để gợi ý
+    this.setupAddressAutocomplete();
+
   }
 
   // Đóng dialog
@@ -149,5 +162,67 @@ export class PaymentStepperDialogComponent implements OnInit {
 
   
 
+
+   setupAddressAutocomplete() {
+    this.secondFormGroup.get('address')?.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(value => {
+        if (value && typeof value === 'string' && value.length > 2) {
+          this.isLoadingAddress = true;
+          return this.goongService.autocomplete(value);
+        }
+        this.predictions = [];
+        return of(null);
+      })
+    ).subscribe({
+      next: (response) => {
+        this.isLoadingAddress = false;
+        if (response && response.predictions) {
+          this.predictions = response.predictions;
+        } else {
+          this.predictions = [];
+        }
+      },
+      error: (error) => {
+        this.isLoadingAddress = false;
+        console.error('Lỗi khi gọi API Goong:', error);
+        this.predictions = [];
+      }
+    });
+  }
+
+
+  // Khi user chọn một địa chỉ từ danh sách gợi ý
+  selectAddress(prediction: any) {
+    this.secondFormGroup.patchValue({
+      address: prediction.description
+    });
+    
+    // Lấy chi tiết địa điểm để có tọa độ (nếu cần)
+    this.goongService.getPlaceDetail(prediction.place_id).subscribe({
+      next: (response) => {
+        if (response && response.result) {
+          this.selectedPlace = {
+            ...response.result,
+            description: prediction.description,
+            placeId: prediction.place_id
+          };
+          console.log('Chi tiết địa điểm:', this.selectedPlace);
+        }
+      },
+      error: (error) => {
+        console.error('Lỗi khi lấy chi tiết địa điểm:', error);
+      }
+    });
+    
+    this.predictions = [];
+  }
+
+
+   // Hiển thị text cho autocomplete
+  displayAddress(value: any): string {
+    return value && typeof value === 'object' ? value.description : value;
+  }
 
 }

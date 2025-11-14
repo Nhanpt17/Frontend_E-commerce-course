@@ -1,0 +1,130 @@
+<div class="vnpay-dialog-container">
+    <h2 mat-dialog-title class="dialog-title-custom">
+        <mat-icon>account_balance</mat-icon>
+        &nbsp;
+        <span class="">Thanh toán qua VNPAY</span>
+    </h2>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-content class="mat-typography dialog-content-custom">
+        <form [formGroup]="vnpayForm" (ngSubmit)="submitVnpayPayment()" class="vnpay-form">
+
+            <h3 class="section-title">1. Thông tin giao hàng</h3>
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Số điện thoại</mat-label>
+                <input matInput placeholder="VD: 0901234567" formControlName="phone" required>
+                <mat-error *ngIf="vnpayForm.get('phone')?.invalid && vnpayForm.get('phone')?.touched">
+                    Vui lòng nhập số điện thoại hợp lệ
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Địa chỉ giao hàng</mat-label>
+                 <!-- ĐỔI từ textarea → input và THÊM [matAutocomplete] -->
+                <input 
+                    matInput 
+                    placeholder="VD: 123 Đường ABC, Quận 1" 
+                    formControlName="address"
+                    [matAutocomplete]="auto"
+                    required>
+                <!-- Loading spinner (hiện khi đang gọi API) -->
+                <mat-icon matSuffix *ngIf="isLoadingAddress">
+                    <mat-spinner diameter="20"></mat-spinner>
+                </mat-icon>
+                
+                <mat-error *ngIf="vnpayForm.get('address')?.invalid && vnpayForm.get('address')?.touched">
+                    Vui lòng nhập địa chỉ
+                </mat-error>
+            </mat-form-field>
+            
+            <!-- ========== DROPDOWN AUTOCOMPLETE ========== -->
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectAddress($event.option.value)">
+                <!-- Lặp qua danh sách gợi ý -->
+                <mat-option *ngFor="let prediction of predictions" [value]="prediction">
+                    <div class="address-option">
+                        <!-- Icon địa điểm -->
+                        <mat-icon class="location-icon">location_on</mat-icon>
+                        
+                        <!-- Text địa chỉ -->
+                        <div class="address-text">
+                            <div class="main-text">{{ prediction.structured_formatting?.main_text }}</div>
+                            <div class="secondary-text">{{ prediction.structured_formatting?.secondary_text }}</div>
+                        </div>
+                    </div>
+                </mat-option>
+            </mat-autocomplete>
+
+            <h3 class="section-title">2. Chọn phương thức thanh toán</h3>
+            <mat-radio-group formControlName="bankCode" class="radio-group payment-method-group">
+                <mat-radio-button value="default" class="radio-item">
+                    <span class="icon-method">
+                        <mat-icon color="accent" class="radio-icon">open_in_new</mat-icon>
+                        <span>Chuyển hướng sang VNPAY (Khuyến nghị) </span>
+                    </span>
+
+                </mat-radio-button>
+
+                <mat-radio-button value="VNPAYQR" class="radio-item">
+                    <span class="icon-method">
+                        <mat-icon color="accent" class="radio-icon">qr_code_2</mat-icon>
+                        <span>Ứng dụng hỗ trợ VNPAYQR</span>
+                    </span>
+
+
+                </mat-radio-button>
+
+                <mat-radio-button value="VNBANK" class="radio-item">
+                    <span class="icon-method">
+                        <mat-icon color="accent" class="radio-icon">credit_card</mat-icon>
+                        <span>Thẻ ATM / Tài khoản nội địa</span>
+                    </span>
+
+
+                </mat-radio-button>
+
+                <mat-radio-button value="INTCARD" class="radio-item">
+
+                    <span class="icon-method">
+                        <mat-icon color="accent" class="radio-icon">language</mat-icon>
+                        <span>Thẻ quốc tế (Visa / MasterCard)</span>
+                    </span>
+
+                </mat-radio-button>
+            </mat-radio-group>
+
+
+            <h3 class="section-title">3. Chọn ngôn ngữ</h3>
+            <mat-radio-group formControlName="language" class="language-group">
+                <mat-radio-button value="vn" class="radio-item">
+                    <span class="flag-icon">🇻🇳</span> Tiếng Việt
+                </mat-radio-button>
+                <mat-radio-button value="en" class="radio-item">
+                    <span class="flag-icon">🇬🇧</span> English
+                </mat-radio-button>
+            </mat-radio-group>
+
+        </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="dialog-actions-custom">
+  <div class="left-actions">
+    <button mat-button [mat-dialog-close]="false" color="accent" class="cancel-btn">
+      <mat-icon>close</mat-icon> Đóng
+    </button>
+  </div>
+
+  <div class="right-actions">
+    <button mat-raised-button color="primary" type="submit"
+            [disabled]="loading || totalPrice <= 0"
+            (click)="submitVnpayPayment()" class="pay-btn">
+      <mat-icon>credit_card</mat-icon>
+      <span *ngIf="!loading">Thanh toán VNPAY</span>
+      <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+    </button>
+  </div>
+</mat-dialog-actions>
+
+
+</div>

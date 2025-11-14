@@ -15,7 +15,6 @@ import { PaypalCheckoutStepperComponent } from './components/paypal-checkout-ste
 import { VnpayPaymentComponent } from './components/vnpay-payment/vnpay-payment.component';
 import { HandlePaymentVnpayComponent } from './components/handle-payment-vnpay/handle-payment-vnpay.component';
 
-
 @NgModule({
   declarations: [
     CustomerComponent,
@@ -26,7 +25,7 @@ import { HandlePaymentVnpayComponent } from './components/handle-payment-vnpay/h
     VoucherCenterComponent,
     PaypalCheckoutStepperComponent,
     VnpayPaymentComponent,
-    HandlePaymentVnpayComponent
+    HandlePaymentVnpayComponent,
   ],
   imports: [
     AngularMaterialModule,
